@@ -2,33 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Info Card</title>
+    <title>Story Builder</title>
 </head>
 <body>
-    <h1>Personal Information</h1>
-    
-    <!-- These paragraph elements will be filled by JavaScript -->
-    <p id="name"></p>
-    <p id="email"></p>
-    <p id="phone"></p>
-    <p id="location"></p>
-    <p id="hobby"></p>
+    <h1 id="sentence1"></h1>
+    <p id="sentence2"></p>
     
     <script>
         // Create your variables here
-        let fullName = "Matthew Phillips";
-        let emailAddress = "your.email@example.com";
-        let phoneNumber = "330-767-6767";
-        let city = "Medina";
-        let favoriteHobby = "Soccer";
+        let character = "Dess and Alex";
+        let place = "Tavern";
+        let item = "potion";
+        let action = "found";
         
-        // Use template literals to format and display
-        document.getElementById('name').textContent = `Name: ${fullName}`;
-        document.getElementById('email').textContent = `Email: ${emailAddress}`;
-        document.getElementById('phone').textContent = `Number: ${phoneNumber}`;
-        document.getElementById('location').textContent = `Town: ${city}`;
-        document.getElementById('hobby').textContent = `Hobby: ${favoriteHobby}`;
+        // Use + to concatenate (join strings together)
+        let firstSentence = character + " went to the " + place + ".";
+        document.getElementById('sentence1').textContent = firstSentence;
         
+        // Use template literals with ${}
+        let secondSentence = `They ${action} a magical ${item}!`;
+        document.getElementById('sentence2').textContent = secondSentence;
     </script>
 </body>
 </html>

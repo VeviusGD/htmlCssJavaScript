@@ -1,37 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Data Types Practice</title>
+    <title>My Profile</title>
 </head>
 <body>
-    <h1>Data Types Practice</h1>
-    <p>Check the console (F12) to see your output!</p>
+    <h1 id="name"></h1>
+    <p id="bio"></p>
+    <p id="details"></p>
     
     <script>
-        // Create your variables here
-        let favoriteFood = "Pizza";
-        let luckyNumber = 7;
-        let likesPizza = true;
-        let dreamJob = "Barber";
-        let numSiblings = 2;
-         
-        // Log each variable with a label
-        console.log("Favorite food:", favoriteFood);
-        console.log("Type:", typeof favoriteFood);
+        // Store profile information in variables
+        let firstName = "Matthew";
+        let lastName = "Phillips";
+        let age = 16;
+        let city = "Medina";
+        let isStudent = true;
         
-        console.log("Lucky number:", luckyNumber);
-        console.log("Type:", typeof luckyNumber);
+        document.getElementById('name').textContent = `${firstName} ${lastName}`;
         
-        console.log("Likes Pizza:", likesPizza);
-        console.log("Type:", typeof likesPizza);
-
-        console.log("Dream Job:", dreamJob);
-        console.log("Type:", typeof dreamJob);
-
-        console.log("Number of Siblings:", numSiblings);
-        console.log("Type:", typeof numSiblings);
+        document.getElementById('bio').textContent = `I am ${age} years old and live in ${city}.`;
         
+        document.getElementById('details').textContent = `Student: ${isStudent}`;
+        
+        // Also log everything to console
+        console.log('Name:', firstName, lastName);
+        console.log('Age:', age);
+        console.log('City:', city);
+        console.log('Is Student:', isStudent);
     </script>
 </body>
 </html>

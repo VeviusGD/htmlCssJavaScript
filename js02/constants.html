@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Const vs Let</title>
+</head>
+<body>
+    <h1>Understanding Const and Let</h1>
+    <div id="output"></div>
+    
+    <script>
+        // Use const for values that won't change
+        const birthYear = 2009;  // Your birth year never changes
+        const hometown = "Springfield";  // Where you were born doesn't change
+        const schoolName = "Medina County Career Center";
+        
+        // Use let for values that will change
+        let currentYear = 2025;  // The year keeps changing
+        let age = 16;  // Your age changes every year
+        let grade = 11;  // Your grade changes
+        
+        // Try to change a const - this will cause an ERROR!
+        // birthYear = 2006;  // "Assignment to constant variable."
+        age = 17;
+        grade = 12;
+
+        let info = `
+            Birth Year: ${birthYear} (const - cannot change)<br>
+            Hometown: ${hometown} (const - cannot change)<br>
+            Current Age: ${age} (let - can change)<br>
+            Current Grade: ${grade} (let - can change)
+        `;
+        
+        document.getElementById('output').innerHTML = info;
+        
+        console.log("Birth Year:", birthYear);
+        console.log("Age:", age);
+    </script>
+</body>
+</html>

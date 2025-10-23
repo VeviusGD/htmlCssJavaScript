@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mad Lib Story</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #d2e0ec;
+        }
+        h1 {
+            color: #1f4368;
+            text-align: center;
+        }
+        .story {
+            background-color: white;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.24);
+            line-height: 1.65;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Mad Lib Story</h1>
+    <div class="story" id="storyOutput"></div>
+    
+    <script>
+        let adjective = "sinister";
+        const noun = "pumpkin";
+        let verb = "hit the griddy";
+        const place = "Ohio";
+        let animal = "penguin";
+        const number = 67;
+        let color = "glowing";
+        const personName = "John";
+        const group = "Watermelon Army";
+
+        let story = `
+            <p>Once upon a time, ${personName} went to ${place} and saw a 
+            ${color} ${animal}.</p>
+            
+            <p>The ${animal} ${verb} over to a ${adjective} ${noun} and 
+            counted to ${number}. It was very ${adjective}!</p>
+
+            <p>After that, ${personName} left ${place} and the ${animal} ${verb}, as he has remained victorious as the king of ${place}!</p>
+
+            <p>${personName} swore revenge was coming. He assembled a ${group} and they all ${verb} in ${place}. The ${animal} and its ${color} aura stood no chance and the ${adjective} ${noun} was saved from ${place}!</p>
+        `;
+        
+        // Display the story
+        document.getElementById('storyOutput').innerHTML = story;
+        
+        // Also log to console
+        console.log("Story:", story);
+    </script>
+</body>
+</html>

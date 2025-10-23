@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Variable Reassignment</title>
+</head>
+<body>
+    <h1>Score Tracker</h1>
+    
+    <h2 id="initial"></h2>
+    <h2 id="updated"></h2>
+    <h2 id="final"></h2>
+    
+    <script>
+        let score = 0;
+
+        document.getElementById("initial").textContent = "Initial Score: " + score;
+        console.log("Score:", score);
+
+        score += 10;
+        document.getElementById("updated").textContent = "Updated Score: " + score;
+        console.log("Score:", score);
+
+        score += 5;
+        document.getElementById("final").textContent = "Final Score: " + score;
+        console.log("Score:", score);
+
+    </script>
+</body>
+</html>
