@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill Splitter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .bill {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="bill">
+        <h2>Bill Split Calculator</h2>
+        <p id="bill"></p>
+        <p id="tip"></p>
+        <p id="total"></p>
+        <hr>
+        <p id="perPerson"></p>
+    </div>
+    
+    <script>
+        let billAmount = 125.50;
+        let numberOfPeople = 4;
+        let tipPercent = 0.20;  // 20% tip
+
+        let tipAmount = billAmount * tipPercent;
+
+        let totalWithTip = billAmount + tipAmount;
+
+        let perPerson = totalWithTip / numberOfPeople;
+
+        document.getElementById('bill').textContent = `Bill Amount: $${billAmount.toFixed(2)}`;
+        document.getElementById('tip').textContent = `Tip Amount: $${tipAmount.toFixed(2)}`;
+        document.getElementById('total').textContent = `Total Amount: $${totalWithTip.toFixed(2)}`;
+        document.getElementById('perPerson').textContent = `Four-Way Split: $${perPerson.toFixed(2)}`;
+
+        console.log('Tip:', tipAmount);
+        console.log('Total:', totalWithTip);
+        console.log('Per person:', perPerson);
+    </script>
+</body>
+</html>

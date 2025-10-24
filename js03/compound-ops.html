@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compound Operators</title>
+</head>
+<body>
+    <h1>Compound Operators Practice</h1>
+    
+    <p id="start"></p>
+    <p id="step1"></p>
+    <p id="step2"></p>
+    <p id="step3"></p>
+    <p id="step4"></p>
+    
+    <script>
+        let total = 100;
+        document.getElementById('start').textContent = `Starting value: ${total}`;
+
+        total += 50;
+        document.getElementById('step1').textContent = `After adding 50: ${total}`;
+
+        total -= 25;
+        document.getElementById('step2').textContent = `After subtracting 25: ${total}`;
+
+        total *= 2;
+        document.getElementById('step3').textContent = `After doubling: ${total}`;
+
+        total /= 5;
+        document.getElementById('step4').textContent = `After dividing by 5: ${total}`;
+
+        console.log('Final total:', total);
+    </script>
+</body>
+</html>

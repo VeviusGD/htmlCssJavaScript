@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitness Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #e8f5e9;
+        }
+        .tracker {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+        }
+        .stat {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f1f8e9;
+            border-left: 4px solid #66bb6a;
+        }
+    </style>
+</head>
+<body>
+    <div class="tracker">
+        <h1>Fitness Progress Tracker</h1>
+        
+        <h3>Current Stats:</h3>
+        <div class="stat" id="start"></div>
+        <div class="stat" id="current"></div>
+        <div class="stat" id="goal"></div>
+        
+        <h3>Progress:</h3>
+        <div class="stat" id="lost"></div>
+        <div class="stat" id="remaining"></div>
+        <div class="stat" id="average"></div>
+        <div class="stat" id="percent"></div>
+        <div class="stat" id="estimate"></div>
+    </div>
+    
+    <script>
+        let startWeight = 200;
+        let currentWeight = 185;
+        let goalWeight = 170;
+        let weeksPassed = 8;
+
+        let weightLost = startWeight - currentWeight;
+
+        let weightRemaining = currentWeight - goalWeight;
+
+        let averageLossPerWeek = weightLost / weeksPassed;
+
+        let totalNeeded = startWeight - goalWeight;
+        let percentComplete = (weightLost / totalNeeded) * 100;
+
+        let weeksToGoal = weightRemaining / averageLossPerWeek;
+
+        document.getElementById('start').textContent = `Starting Weight: ${startWeight} lbs`;
+        document.getElementById('current').textContent = `Current Weight: ${currentWeight} lbs`;
+        document.getElementById('goal').textContent = `Goal Weight: ${goalWeight} lbs`;
+
+        document.getElementById('lost').textContent = `Lost: ${weightLost} lbs`;
+        document.getElementById('remaining').textContent = `Remaining: ${weightRemaining} lbs`;
+        document.getElementById('average').textContent = `Average loss per week: ${averageLossPerWeek} lbs`;
+        document.getElementById('percent').textContent = `Percent Complete: ${percentComplete}%`;
+        document.getElementById('estimate').textContent = `Weeks until the goal: ${weeksToGoal} weeks`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .converter {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .amount {
+            font-size: 24px;
+            color: #667eea;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .conversion {
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h1>Currency Converter</h1>
+        <div class="amount" id="usd"></div>
+        
+        <p class="conversion" id="euro"></p>
+        <p class="conversion" id="pound"></p>
+        <p class="conversion" id="yen"></p>
+        <p class="conversion" id="cad"></p>
+    </div>
+    
+    <script>
+        let usdAmount = 100;
+
+        let euroRate = 0.92;
+        let poundRate = 0.79;
+        let yenRate = 149.50;
+        let cadRate = 1.36;
+
+        document.getElementById('usd').textContent = `$${usdAmount.toFixed(2)} USD equals:`;
+
+        let euros = usdAmount * euroRate;
+        document.getElementById('euro').textContent = `€${euros.toFixed(2)} EUR`;
+
+        let pounds = usdAmount * poundRate;
+        document.getElementById('pound').textContent = `€${pounds.toFixed(2)} GBP`;
+
+        let yen = usdAmount * yenRate;
+        document.getElementById('yen').textContent = `€${yen.toFixed(2)} YEN`;
+
+        let cad = usdAmount * cadRate;
+        document.getElementById('cad').textContent = `€${cad.toFixed(2)} CAD`;
+
+        console.log('USD:', usdAmount);
+        console.log('EUR:', euros);
+    </script>
+</body>
+</html>

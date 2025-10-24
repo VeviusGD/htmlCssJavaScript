@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .result {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grade Calculator</h1>
+    <div class="result" id="output"></div>
+    
+    <script>
+        // Test scores
+        let test1 = 85;
+        let test2 = 92;
+        let test3 = 78;
+        let test4 = 88;
+        
+        // Calculate total
+        let total = test1 + test2 + test3 + test4;
+        
+        // Calculate average
+        let average = total / 4;
+        
+        // Round to 1 decimal place
+        let roundedAverage = average.toFixed(2);
+        
+        // Display results
+        let output = `
+            Test 1: ${test1}
+            Test 2: ${test2}
+            Test 3: ${test3}
+            Test 4: ${test4}
+            
+            Total Points: ${total}
+            Average: ${roundedAverage}
+        `;
+        
+        document.getElementById('output').textContent = output;
+        
+        // Log to console
+        console.log('Average grade:', roundedAverage);
+    </script>
+</body>
+</html>

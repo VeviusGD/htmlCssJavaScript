@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .receipt {
+            background-color: white;
+            padding: 20px;
+            border: 2px dashed #333;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <h2>Shopping Cart Summary</h2>
+        <p id="item1"></p>
+        <p id="item2"></p>
+        <p id="item3"></p>
+        <hr>
+        <p id="subtotal"></p>
+        <p id="tax"></p>
+        <hr>
+        <p id="total"></p>
+    </div>
+    
+    <script>
+        // Item prices
+        let item1Price = 29.99;
+        let item2Price = 15.50;
+        let item3Price = 42.00;
+        let taxRate = 0.08;  // 8% tax
+
+        let subtotal = item1Price + item2Price + item3Price;
+
+        let tax = subtotal * taxRate;
+
+        let total = subtotal + tax;
+        
+        // Display items
+        document.getElementById('item1').textContent = `Item 1: $${item1Price.toFixed(2)}`;
+        document.getElementById('item2').textContent = `Item 2: $${item2Price.toFixed(2)}`;
+        document.getElementById('item3').textContent = `Item 3: $${item3Price.toFixed(2)}`;
+
+        document.getElementById('subtotal').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+        document.getElementById('tax').textContent = `Tax: $${tax.toFixed(2)}`;
+        document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+
+        console.log('Subtotal:', subtotal);
+        console.log('Tax:', tax);
+        console.log('Total:', total);
+    </script>
+</body>
+</html>

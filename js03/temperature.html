@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <h2>Celsius to Fahrenheit</h2>
+    
+    <p id="temp1"></p>
+    <p id="temp2"></p>
+    <p id="temp3"></p>
+    
+    <script>
+        let celsius1 = 0;
+        let celsius2 = 20;
+        let celsius3 = 100;
+
+        let fahrenheit1 = (celsius1 * 9/5) + 32;
+        let fahrenheit2 = (celsius2 * 9/5) + 32;
+        let fahrenheit3 = (celsius3 * 9/5) + 32;
+
+        document.getElementById('temp1').textContent = `${celsius1}°C = ${fahrenheit1}°F`;
+        document.getElementById('temp2').textContent = `${celsius2}°C = ${fahrenheit2}°F`;
+        document.getElementById('temp3').textContent = `${celsius3}°C = ${fahrenheit3}°F`;
+
+        console.log(`${celsius1}°C = ${fahrenheit1}°F`);
+    </script>
+</body>
+</html>

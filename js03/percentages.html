@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Percentage Calculator</title>
+</head>
+<body>
+    <h1>Percentage Calculator</h1>
+    
+    <p id="test"></p>
+    <p id="quiz"></p>
+    <p id="tasks"></p>
+    
+    <script>
+        // Test scenario
+        let testScore = 42;
+        let testMax = 50;
+        let testPercent = (testScore / testMax) * 100;
+        document.getElementById('test').textContent = `Test Score: ${testScore}/${testMax} = ${testPercent.toFixed(1)}%`;
+
+        let quizScore = 18;
+        let quizMax = 20;
+        let quizPercent = (quizScore / quizMax) * 100;
+        document.getElementById('quiz').textContent = `Quiz Score: ${quizScore}/${quizMax} = ${quizPercent.toFixed(1)}%`;
+
+        let tasksComplete = 75;
+        let tasksTotal = 100;
+        let tasksPercent = (tasksComplete / tasksTotal) * 100;
+        document.getElementById('tasks').textContent = `Task Score: ${tasksComplete}/${tasksTotal} = ${tasksPercent.toFixed(1)}%`;
+    </script>
+</body>
+</html>

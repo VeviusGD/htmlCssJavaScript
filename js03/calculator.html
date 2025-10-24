@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Calculator</title>
+</head>
+<body>
+    <h1>Math Operations Practice</h1>
+    
+    <!-- Create paragraph elements for each operation -->
+    <p id="addition"></p>
+    <p id="subtraction"></p>
+    <p id="multiplication"></p>
+    <p id="division"></p>
+    <p id="remainder"></p>
+    
+    <script>
+        // Your two numbers
+        let num1 = 11;
+        let num2 = 5;
+        
+        // Perform calculations
+        let sum = num1 + num2;
+        let difference = num1 - num2;
+        let product = num1 * num2;
+        let quotient = num1 / num2;
+        let remnant = num1 % num2;
+        
+        // Display results using template literals
+        document.getElementById('addition').textContent = `Addition: ${num1} + ${num2} = ${sum}`;
+        document.getElementById('subtraction').textContent = `Subtraction: ${num1} - ${num2} = ${difference}`;
+        document.getElementById('multiplication').textContent = `Product: ${num1} * ${num2} = ${product}`;
+        document.getElementById('division').textContent = `Quotient: ${num1} / ${num2} = ${quotient}`;
+        document.getElementById('remainder').textContent = `Remnant: ${num1} % ${num2} = ${remnant}`;
+        
+        // Log to console
+        console.log('Sum:', sum);
+        console.log('Difference:', difference);
+        console.log('Product:', product);
+        console.log('Quotient:', quotient);
+        console.log('Remnant:', remnant);
+        // Add the rest of your console.log statements
+    </script>
+</body>
+</html>

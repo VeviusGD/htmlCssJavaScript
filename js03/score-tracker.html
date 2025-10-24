@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Score Tracker</title>
+</head>
+<body>
+    <h1>Game Score Tracker</h1>
+    
+    <p id="start"></p>
+    <p id="point1"></p>
+    <p id="point2"></p>
+    <p id="point3"></p>
+    <p id="point4"></p>
+    <p id="point5"></p>
+    <p id="penalty1"></p>
+    <p id="penalty2"></p>
+    <p id="final"></p>
+    
+    <script>
+        // Starting score
+        let score = 0;
+        document.getElementById('start').textContent = `Starting score: ${score}`;
+
+        score++;
+        document.getElementById('point1').textContent = `After point 1: ${score}`;
+        score++;
+        document.getElementById('point2').textContent = `After point 2: ${score}`;
+        score++;
+        document.getElementById('point3').textContent = `After point 3: ${score}`;
+        score++;
+        document.getElementById('point4').textContent = `After point 4: ${score}`;
+        score++;
+        document.getElementById('point5').textContent = `After point 5: ${score}`;
+
+        score--;
+        document.getElementById('penalty1').textContent = `After penalty 1: ${score}`;
+        score--;
+        document.getElementById('penalty2').textContent = `After penalty 2: ${score}`;
+
+        document.getElementById('final').textContent = `Final Score: ${score}`;
+    </script>
+</body>
+</html>
