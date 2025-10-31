@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        h1 {
+            text-align: center;
+            color: #d32f2f;
+        }
+        .menu-item {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: white;
+            border-left: 4px solid #d32f2f;
+        }
+        #hours {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="restaurant-name">Restaurant Name</h1>
+    
+    <p class="menu-item" id="item1">Menu item 1</p>
+    <p class="menu-item" id="item2">Menu item 2</p>
+    <p class="menu-item" id="item3">Menu item 3</p>
+    
+    <p id="hours">Hours info</p>
+    
+    <script>
+        // Select the restaurant name element
+        let restaurantName = document.getElementById('restaurant-name');
+        
+        // Change the restaurant name
+        restaurantName.textContent = "Joe's Pizza Palace";
+        
+        // Select menu items
+        let menuItem1 = document.getElementById('item1');
+        let menuItem2 = document.getElementById('item2');
+        let menuItem3 = document.getElementById('item3');
+        
+        // Update menu items (you complete these)
+        menuItem1.textContent = "Margherita Pizza - $12.99";
+        menuItem2.textContent = "Pepperoni Special - $14.99";
+        menuItem3.textContent = "Veggie Supreme - $13.99";
+        
+        // Select and update hours
+        let hoursElement = document.getElementById('hours');
+        // Update the hours here
+        hours.textContent = "Open Daily: 11am - 10pm";
+        
+        console.log('Menu updated!');
+    </script>
+</body>
+</html>

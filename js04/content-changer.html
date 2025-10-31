@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content Changer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 id="title">Original Title</h1>
+        <p id="description">Original description text.</p>
+        <p id="info">Original info text.</p>
+    </div>
+    
+    <script>
+        // Select elements by their ID
+        let titleElement = document.getElementById('title');
+        let descElement = document.getElementById('description');
+        let infoElement = document.getElementById('info');
+        
+        // Change content using textContent
+        titleElement.textContent = 'JavaScript Changed This!';
+        descElement.textContent = 'This text was updated using JavaScript DOM manipulation.';
+        
+        // Use innerHTML when you want to add HTML tags inside
+        infoElement.innerHTML = 'This element now has <strong>bold text</strong> and <em>italic text</em>!';
+        
+        // Add a CSS class to an element
+        descElement.classList.add('highlight');
+        
+        // Change inline styles directly
+        titleElement.style.color = 'red';
+        
+        // Log to console
+        console.log('Content successfully updated!');
+    </script>
+</body>
+</html>

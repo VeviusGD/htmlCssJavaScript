@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eceff1;
+            padding: 50px;
+        }
+        
+        .card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .card h2 {
+            margin: 0 0 5px 0;
+            font-size: 28px;
+        }
+        
+        .card .title {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .card .info {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .card .company {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="card"></div>
+    
+    <script>
+        // Business card information
+        let fullName = "Matthew Phillips";
+        let jobTitle = "Balancer";
+        let company = "TDS: Reanimated";
+        let email = "veviusgd@gmail.com";
+        let phone = "(330) 760-9721";
+        let website = "www.tds-reanimated-work.fandom.com";
+        let hometown = "Medina, OH";
+        
+        // Select the card container
+        let cardDiv = document.getElementById('card');
+        
+        // Build the card HTML using template literals
+        let cardHTML = `
+            <h2>${fullName}</h2>
+            <div class="title">${jobTitle}</div>
+            <div class="info">📧 ${email}</div>
+            <div class="info">📱 ${phone}</div>
+            <div class="info">🏠 ${hometown}</div>
+            <div class="info">🌐 ${website}</div>
+            <div class="company">${company}</div>
+        `;
+        
+        // Add the card class to the div
+        cardDiv.classList.add('card');
+        
+        // Insert the HTML
+        cardDiv.innerHTML = cardHTML;
+        
+        console.log('Business card created for', fullName);
+    </script>
+</body>
+</html>

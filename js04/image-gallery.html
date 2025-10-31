@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #gallery-image {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        #caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    
+    <img id="gallery-image" src="placeholder.jpg" alt="Placeholder">
+    <p id="caption">Original caption</p>
+    
+    <script>
+        // Select the image element
+        let img = document.getElementById('gallery-image');
+        
+        // Change the image source
+        // Using a placeholder service for a real image
+        img.src = 'https://via.placeholder.com/300/00FF00/000000?text=Green';
+        
+        // Change the alt text
+        img.alt = 'A blue placeholder image';
+        
+        // Add a border style
+        img.style.border = '5px solid #2196f3';
+        img.style.borderRadius = '10px';
+        
+        // Select and update the caption
+        let caption = document.getElementById('caption');
+        // Update the caption text here...
+        
+        console.log('Image updated!');
+    </script>
+</body>
+</html>

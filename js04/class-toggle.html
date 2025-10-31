@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Toggle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        /* CSS classes to be added by JavaScript */
+        .highlight {
+            background-color: #ffeb3b;
+            font-weight: bold;
+            padding: 10px;
+        }
+        
+        .large {
+            font-size: 24px;
+        }
+        
+        .fancy {
+            color: purple;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Class Toggle Practice</h1>
+    
+    <p id="para1">This paragraph will get the highlight class.</p>
+    <p id="para2">This paragraph will get the large class.</p>
+    <p id="para3">This paragraph will get both fancy and highlight classes.</p>
+    
+    <script>
+        // Select paragraph 1 and add 'highlight' class
+        let para1 = document.getElementById('para1');
+        para1.classList.add('highlight');
+        
+        // Select paragraph 2 and add 'large' class
+        para2.classList.add('large');
+        
+        // Select paragraph 3 and add both 'fancy' and 'highlight' classes
+        para3.classList.add('highlight', 'large')
+        // Hint: You can call classList.add() twice, or pass both: .add('fancy', 'highlight')
+        
+        console.log('Classes added successfully!');
+    </script>
+</body>
+</html>
