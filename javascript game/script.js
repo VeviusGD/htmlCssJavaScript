@@ -38,7 +38,6 @@ const winningScore = 5500;
 const gameGrid = [];
 const towers = [];
 const enemies = [];
-const enemyPositions = [];
 const projectiles = [];
 const resources = [];
 const winParticles = [];
@@ -46,8 +45,8 @@ const towerStats = {
     1: {
         cost: 100,
         health: 100,
-        damage: 20,
-        attackRate: 100
+        damage: 10,
+        attackRate: 20
     },
     2: {
         cost: 125,
@@ -124,6 +123,7 @@ function handleGameGrid(){
         gameGrid[i].draw();
     }
 }
+
 // projectiles
 class Projectile {
     constructor(x, y, power, isPiercing = false){
@@ -180,7 +180,6 @@ function handleProjectiles(){
     }
 }
 
-// towers
 class Tower {
     constructor(x, y){
         this.x = x;
@@ -227,13 +226,7 @@ class Tower {
 
     update(){
         if (this.shooting){
-            if (this.chosenTower === 1 || this.chosenTower === 2) {
-                this.timer++;
-                if (this.timer % this.attackRate === 0) {
-                    projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage));
-                }
-            }
-            else if (this.chosenTower === 3) {
+            if (this.chosenTower === 3) {
                 if (this.burstShotsLeft > 0) {
                     this.burstTimer++;
                     if (this.burstTimer % this.burstSpeed === 0) {
@@ -241,26 +234,27 @@ class Tower {
                         this.burstShotsLeft--;
                         this.burstTimer = 0;
                     }
-                } 
-                else {
+                } else {
                     this.timer++;
-                    if (this.timer % this.attackRate === 0) {
-                        this.burstShotsLeft = 3;
+                    if (this.timer >= this.attackRate) {
                         this.timer = 0;
+                        this.burstShotsLeft = 3;
                         
                         projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage));
                         this.burstShotsLeft--;
                     }
                 }
             }
-            else if (this.chosenTower === 4) {
-                 this.timer++;
-                 if (this.timer % this.attackRate === 0) {
-                    projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage, true));
-                 }
+            else {
+                this.timer++;
+                if (this.timer >= this.attackRate){
+                    this.timer = 0;
+                    let isPiercing = (this.chosenTower === 4);
+                    projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage, isPiercing));
+                }
             }
         } else {
-            this.timer = 0;
+            this.timer = this.attackRate;
             if (this.chosenTower === 3) {
                 this.burstShotsLeft = 0;
                 this.burstTimer = 0;
@@ -282,22 +276,38 @@ function handleTowers(){
 
         towers[i].update();
 
-        let bossIsPresent = false;
-        if (bossSpawned) {
-            for (let j = 0; j < enemies.length; j++) {
-                if (enemies[j].enemyType === 'boss') {
-                    if (towers[i].y >= enemies[j].y && towers[i].y <= enemies[j].y + enemies[j].height) {
-                        bossIsPresent = true;
+        let enemyInRow = false;
+        for (let j = 0; j < enemies.length; j++) {
+            let enemy = enemies[j];
+            let tower = towers[i];
+            
+            if (enemy.enemyType === 'boss') {
+                if (tower.y >= enemy.y && tower.y < (enemy.y + enemy.height)) {
+                    if (tower.chosenTower === 1) {
+                        if (enemy.x < tower.x + (cellSize * 3)) {
+                            enemyInRow = true;
+                            break;
+                        }
+                    } else {
+                        enemyInRow = true;
+                        break;
                     }
                 }
             }
+
+            if (enemy.enemyType !== 'boss' && enemy.y === tower.y) {
+                if (tower.chosenTower === 1) {
+                    if (enemy.x < tower.x + (cellSize * 3)) {
+                        enemyInRow = true;
+                        break;
+                    }
+                } else {
+                    enemyInRow = true;
+                    break;
+                }
+            }
         }
-        
-        if (enemyPositions.indexOf(towers[i].y) !== -1 || bossIsPresent){
-            towers[i].shooting = true;
-        } else {
-            towers[i].shooting = false;
-        }
+        towers[i].shooting = enemyInRow;
 
         for (let j = 0; j < enemies.length; j++){
             if (towers[i] && collision(towers[i], enemies[j])){
@@ -313,7 +323,7 @@ function handleTowers(){
                 let deadTower = towers[i];
                 towers.splice(i, 1);
                 i--;
-
+                
                 for (let k = 0; k < enemies.length; k++) {
                     if (collision(deadTower, enemies[k])) {
                         enemies[k].movement = enemies[k].speed;
@@ -378,38 +388,52 @@ function chooseTower(){
     }
 
     ctx.lineWidth = 2;
-
-    ctx.font = '18px Are You Serious';
     ctx.textAlign = 'center';
 
     ctx.fillStyle = 'darkgreen';
     ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
     ctx.strokeStyle = card1stroke;
     ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
+    
     ctx.fillStyle = 'white';
-    ctx.fillText(towerStats[1].cost, card1.x + card1.width / 2, card1.y + card1.height - 8);
+    ctx.font = '16px Are You Serious';
+    ctx.fillText('Slasher', card1.x + card1.width / 2, card1.y + 20);
+    ctx.font = '14px Are You Serious';
+    ctx.fillText(towerStats[1].cost, card1.x + card1.width / 2, card1.y + card1.height - 8); // Cost
 
     ctx.fillStyle = 'gray';
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
     ctx.strokeStyle = card2stroke;
     ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
+    
     ctx.fillStyle = 'white';
-    ctx.fillText(towerStats[2].cost, card2.x + card2.width / 2, card2.y + card2.height - 8);
+    ctx.font = '16px Are You Serious';
+    ctx.fillText('Sniper', card2.x + card2.width / 2, card2.y + 20);
+    ctx.font = '14px Are You Serious';
+    ctx.fillText(towerStats[2].cost, card2.x + card2.width / 2, card2.y + card2.height - 8); // Cost
 
     ctx.fillStyle = '#8B4513';
     ctx.fillRect(card3.x, card3.y, card3.width, card3.height);
     ctx.strokeStyle = card3stroke;
     ctx.strokeRect(card3.x, card3.y, card3.width, card3.height);
+    
     ctx.fillStyle = 'white';
-    ctx.fillText(towerStats[3].cost, card3.x + card3.width / 2, card3.y + card3.height - 8);
+    ctx.font = '16px Are You Serious';
+    ctx.fillText('Soldier', card3.x + card3.width / 2, card3.y + 20);
+    ctx.font = '14px Are You Serious';
+    ctx.fillText(towerStats[3].cost, card3.x + card3.width / 2, card3.y + card3.height - 8); // Cost
 
     ctx.fillStyle = 'navy';
     ctx.fillRect(card4.x, card4.y, card4.width, card4.height);
     ctx.strokeStyle = card4stroke;
     ctx.strokeRect(card4.x, card4.y, card4.width, card4.height);
+    
     ctx.fillStyle = 'white';
-    ctx.fillText(towerStats[4].cost, card4.x + card4.width / 2, card4.y + card4.height - 8);
-
+    ctx.font = '16px Are You Serious';
+    ctx.fillText('Archer', card4.x + card4.width / 2, card4.y + 20);
+    ctx.font = '14px Are You Serious';
+    ctx.fillText(towerStats[4].cost, card4.x + card4.width / 2, card4.y + card4.height - 8); // Cost
+    
     ctx.textAlign = 'left';
 }
 
@@ -523,26 +547,15 @@ function handleEnemies(){
             score += gainedResources;
             floatingMessages.push(new floatingMessage('+' + gainedResources, enemies[i].x, enemies[i].y, 20, 'black'))
             floatingMessages.push(new floatingMessage('+' + gainedResources, 137.5, 24, 20, 'black'))
-            
-            const yPos = enemies[i].y;
-            let findThisIndex = enemyPositions.indexOf(yPos);
-            while (findThisIndex > -1) {
-                enemyPositions.splice(findThisIndex, 1);
-                findThisIndex = enemyPositions.indexOf(yPos);
-            }
-            
+
             enemies.splice(i, 1);
             i--;
         }
     }
 
     if (score >= 5000 && !bossSpawned) {
-        // Spawn the boss
         enemies.push(new Enemy(cellSize, 'boss'));
         boss = enemies[enemies.length - 1];
-        for (let i = 1; i <= 5; i++) {
-            enemyPositions.push(i * cellSize + cellGap);
-        }
         bossSpawned = true;
     }
 
@@ -554,7 +567,7 @@ function handleEnemies(){
         } else {
             verticalPosition = Math.floor(Math.random() * 5 + 1) * cellSize + cellGap;
         }
-
+        
         let spawnPool = ['base'];
         if (score >= 300) {
             spawnPool.push('fast');
@@ -566,7 +579,6 @@ function handleEnemies(){
         let randomType = spawnPool[Math.floor(Math.random() * spawnPool.length)];
         
         enemies.push(new Enemy(verticalPosition, randomType));
-        enemyPositions.push(verticalPosition);
         
         enemiesSpawnedCount++;
 
@@ -790,7 +802,7 @@ function drawStartScreen() {
     ctx.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
     ctx.fillStyle = 'white';
     ctx.font = '40px Are You Serious';
-    ctx.fillText('START', canvas.width/2, 425);
+    ctx.fillText('Start', canvas.width/2, 425);
     ctx.textAlign = 'left';
 }
 
