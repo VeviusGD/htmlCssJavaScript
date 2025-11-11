@@ -3,7 +3,101 @@ const ctx = canvas.getContext('2d');
 canvas.width = 900;
 canvas.height = 600;
 
-// global variables
+const gameModeConfig = {
+    'Normal': {
+        bossName: 'Destroyer Mk I',
+        enemyColors: {
+            base: '#2E7D32',
+            fast: '#66BB6A',
+            tank: '#1B5E20',
+            boss: '#388E3C'
+        },
+        enemyStats: {
+            base: { health: 100, damage: 15, speed: { min: 0.4, max: 0.8 } },
+            fast: { health: 60, damage: 10, speed: { min: 0.8, max: 1.5 } },
+            tank: { health: 300, damage: 25, speed: { min: 0.3, max: 0.6 } },
+            boss: { health: 10000, damage: 1000, speed: { min: 0.2, max: 0.4 } }
+        },
+        towerStats: {
+            1: { cost: 100, health: 100, damage: 10, attackRate: 20 },
+            2: { cost: 125, health: 200, damage: 100, attackRate: 250 },
+            3: { cost: 250, health: 125, damage: 40, attackRate: 160 },
+            4: { cost: 450, health: 175, damage: 50, attackRate: 160 },
+        },
+        initialResources: 400,
+        initialEnemyInterval: 650,
+        spawnTiers: [ 
+            { scoreThreshold: 1500, minInterval: 24,  decreaseAmount: 3 },
+            { scoreThreshold: 300,  minInterval: 150, decreaseAmount: 10 },
+            { scoreThreshold: 0,    minInterval: 250, decreaseAmount: 20 } 
+        ],
+        bossSpawnScore: 5000,
+        winningScore: 5500
+    },
+    'Hard': {
+        bossName: 'Destroyer Mk II',
+        enemyColors: {
+            base: '#7B1FA2',
+            fast: '#BA68C8',
+            tank: '#4A148C',
+            boss: '#6A1B9A'
+        },
+        enemyStats: {
+            base: { health: 200, damage: 15, speed: { min: 0.5, max: 0.9 } },
+            fast: { health: 120, damage: 15, speed: { min: 1.0, max: 1.8 } },
+            tank: { health: 600, damage: 35, speed: { min: 0.4, max: 0.7 } },
+            boss: { health: 25000, damage: 1500, speed: { min: 0.3, max: 0.5 } }
+        },
+        towerStats: {
+            1: { cost: 100, health: 120, damage: 15, attackRate: 20 },
+            2: { cost: 125, health: 250, damage: 150, attackRate: 250 },
+            3: { cost: 250, health: 165, damage: 60, attackRate: 160 },
+            4: { cost: 450, health: 215, damage: 75, attackRate: 160 },
+        },
+        initialResources: 450,
+        initialEnemyInterval: 550,
+        spawnTiers: [ 
+            { scoreThreshold: 3000, minInterval: 22,  decreaseAmount: 3 },
+            { scoreThreshold: 500,  minInterval: 135, decreaseAmount: 10 },
+            { scoreThreshold: 0,    minInterval: 200, decreaseAmount: 20 }
+        ],
+        bossSpawnScore: 7500,
+        winningScore: 8000
+    },
+    'Nightmare': {
+        bossName: 'Destroyer Mk III',
+        enemyColors: {
+            base: 'red',
+            fast: '#FF7043',
+            tank: 'darkred',
+            boss: 'maroon'
+        },
+        enemyStats: {
+            base: { health: 400, damage: 15, speed: { min: 0.6, max: 1.0 } },
+            fast: { health: 240, damage: 20, speed: { min: 1.2, max: 2.0 } },
+            tank: { health: 1200, damage: 45, speed: { min: 0.5, max: 0.8 } },
+            boss: { health: 75000, damage: 2000, speed: { min: 0.4, max: 0.6 } }
+        },
+        towerStats: {
+            1: { cost: 125, health: 150, damage: 20, attackRate: 20 },
+            2: { cost: 160, health: 300, damage: 200, attackRate: 250 },
+            3: { cost: 375, health: 210, damage: 80, attackRate: 160 },
+            4: { cost: 600, health: 250, damage: 100, attackRate: 160 },
+        },
+        initialResources: 500,
+        initialEnemyInterval: 450,
+        spawnTiers: [ 
+            { scoreThreshold: 4500, minInterval: 20,  decreaseAmount: 3 },
+            { scoreThreshold: 750,  minInterval: 120,  decreaseAmount: 10 },
+            { scoreThreshold: 0,    minInterval: 150, decreaseAmount: 20 }
+        ],
+        bossSpawnScore: 10000,
+        winningScore: 11000
+    }
+};
+
+let gameMode = 'Normal';
+
 const cellSize = 100;
 const cellGap = 3;
 let numberOfResources = 300;
@@ -15,10 +109,13 @@ let chosenTower = 1;
 let bossSpawned = false;
 let bossBarOpacity = 0;
 let winScreenOpacity = 0;
+let gameOverOpacity = 0;
 let sellMode = false;
 let boss = null;
 let enemiesSpawnedCount = 0;
 let gameStarted = false;
+
+let towerStats = {};
 
 const startButton = {
     x: 350,
@@ -34,39 +131,12 @@ const sellButton = {
     height: 80
 }
 
-const winningScore = 5500;
 const gameGrid = [];
 const towers = [];
 const enemies = [];
 const projectiles = [];
 const resources = [];
 const winParticles = [];
-const towerStats = {
-    1: {
-        cost: 100,
-        health: 100,
-        damage: 10,
-        attackRate: 20
-    },
-    2: {
-        cost: 125,
-        health: 175,
-        damage: 75,
-        attackRate: 300
-    },
-    3: {
-        cost: 300,
-        health: 125,
-        damage: 40,
-        attackRate: 200
-    },
-    4: {
-        cost: 500,
-        health: 200,
-        damage: 50,
-        attackRate: 140
-    },
-};
 
 // mouse
 const mouse = {
@@ -90,7 +160,8 @@ canvas.addEventListener('mousemove', function(e){
 canvas.addEventListener('mouseleave', function(){
     mouse.x = undefined;
     mouse.y = undefined;
-})
+});
+
 // game board
 const controlsBar = {
     width: canvas.width,
@@ -220,7 +291,7 @@ class Tower {
         ctx.fillRect(this.x, this.y, this.width, this.height);
         
         ctx.fillStyle = 'white';
-        ctx.font = '20px Are You Serious';
+        ctx.font = '20px "Are You Serious"';
         ctx.fillText(Math.floor(this.health), this.x + 2, this.y + 22);
     }
 
@@ -396,10 +467,10 @@ function chooseTower(){
     ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
     
     ctx.fillStyle = 'white';
-    ctx.font = '16px Are You Serious';
+    ctx.font = '16px "Are You Serious"';
     ctx.fillText('Slasher', card1.x + card1.width / 2, card1.y + 20);
-    ctx.font = '14px Are You Serious';
-    ctx.fillText(towerStats[1].cost, card1.x + card1.width / 2, card1.y + card1.height - 8); // Cost
+    ctx.font = '14px "Are You Serious"';
+    ctx.fillText(towerStats[1]?.cost || 'N/A', card1.x + card1.width / 2, card1.y + card1.height - 8);
 
     ctx.fillStyle = 'gray';
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
@@ -407,10 +478,10 @@ function chooseTower(){
     ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
     
     ctx.fillStyle = 'white';
-    ctx.font = '16px Are You Serious';
+    ctx.font = '16px "Are You Serious"';
     ctx.fillText('Sniper', card2.x + card2.width / 2, card2.y + 20);
-    ctx.font = '14px Are You Serious';
-    ctx.fillText(towerStats[2].cost, card2.x + card2.width / 2, card2.y + card2.height - 8); // Cost
+    ctx.font = '14px "Are You Serious"';
+    ctx.fillText(towerStats[2]?.cost || 'N/A', card2.x + card2.width / 2, card2.y + card2.height - 8);
 
     ctx.fillStyle = '#8B4513';
     ctx.fillRect(card3.x, card3.y, card3.width, card3.height);
@@ -418,10 +489,10 @@ function chooseTower(){
     ctx.strokeRect(card3.x, card3.y, card3.width, card3.height);
     
     ctx.fillStyle = 'white';
-    ctx.font = '16px Are You Serious';
+    ctx.font = '16px "Are You Serious"';
     ctx.fillText('Soldier', card3.x + card3.width / 2, card3.y + 20);
-    ctx.font = '14px Are You Serious';
-    ctx.fillText(towerStats[3].cost, card3.x + card3.width / 2, card3.y + card3.height - 8); // Cost
+    ctx.font = '14px "Are You Serious"';
+    ctx.fillText(towerStats[3]?.cost || 'N/A', card3.x + card3.width / 2, card3.y + card3.height - 8);
 
     ctx.fillStyle = 'navy';
     ctx.fillRect(card4.x, card4.y, card4.width, card4.height);
@@ -429,15 +500,14 @@ function chooseTower(){
     ctx.strokeRect(card4.x, card4.y, card4.width, card4.height);
     
     ctx.fillStyle = 'white';
-    ctx.font = '16px Are You Serious';
+    ctx.font = '16px "Are You Serious"';
     ctx.fillText('Archer', card4.x + card4.width / 2, card4.y + 20);
-    ctx.font = '14px Are You Serious';
-    ctx.fillText(towerStats[4].cost, card4.x + card4.width / 2, card4.y + card4.height - 8); // Cost
+    ctx.font = '14px "Are You Serious"';
+    ctx.fillText(towerStats[4]?.cost || 'N/A', card4.x + card4.width / 2, card4.y + card4.height - 8);
     
     ctx.textAlign = 'left';
 }
 
-// floating messages
 const floatingMessages = [];
 class floatingMessage {
     constructor(value, x, y, size, color){
@@ -457,7 +527,7 @@ class floatingMessage {
     draw(){
         ctx.globalAlpha = this.opacity;
         ctx.fillStyle = this.color;
-        ctx.font = this.size + 'px Are You Serious';
+        ctx.font = this.size + 'px "Are You Serious"';
         ctx.fillText(this.value, this.x, this.y);
         ctx.globalAlpha = 1;
     }
@@ -475,45 +545,26 @@ function handleFloatingMessages(){
 
 // enemies
 class Enemy {
-    constructor(verticalPosition, enemyType = 'base'){
+    constructor(verticalPosition, enemyType = 'base', gameMode){
         this.x = canvas.width;
         this.y = verticalPosition;
         this.width = cellSize - cellGap * 2;
         this.height = cellSize - cellGap * 2;
-        this.speed = 0;
-        this.movement = 0;
-        this.health = 100;
-        this.maxHealth = 100;
         this.enemyType = enemyType;
         this.attackTimer = 0;
         this.attackRate = 60;
-        this.damage = 10;
-        this.color = 'red';
 
-        if (enemyType === 'base') {
-            this.health = 100;
-            this.maxHealth = 100;
-            this.speed = Math.random() * 0.4 + 0.8;
-            this.damage = 5;
-            this.color = 'red';
-        } else if (enemyType === 'fast') {
-            this.health = 60;
-            this.maxHealth = 60;
-            this.speed = Math.random() * 0.8 + 1.5;
-            this.damage = 3;
-            this.color = 'lightcoral';
-        } else if (enemyType === 'tank') {
-            this.health = 300;
-            this.maxHealth = 300;
-            this.speed = Math.random() * 0.3 + 0.6;
-            this.damage = 10;
-            this.color = 'darkred';
-        } else if (enemyType === 'boss') {
-            this.health = 5000;
-            this.maxHealth = 5000;
-            this.speed = Math.random() * 0.2 + 0.4;
-            this.damage = 50;
-            this.color = 'maroon';
+        const config = gameModeConfig[gameMode];
+        const stats = config.enemyStats[enemyType];
+        const speedRange = stats.speed;
+
+        this.health = stats.health;
+        this.maxHealth = stats.health;
+        this.speed = Math.random() * (speedRange.max - speedRange.min) + speedRange.min;
+        this.damage = stats.damage;
+        this.color = config.enemyColors[enemyType];
+
+        if (enemyType === 'boss') {
             this.width = cellSize - cellGap * 2;
             this.height = (cellSize * 5) - cellGap * 2;
             this.y = cellSize + cellGap;
@@ -529,7 +580,7 @@ class Enemy {
         ctx.fillRect(this.x, this.y, this.width, this.height);
         
         ctx.fillStyle = 'white';
-        ctx.font = '20px Are You Serious';
+        ctx.font = '20px "Are You Serious"';
         ctx.fillText(Math.floor(this.health), this.x + 2, this.y + 22);
     }
 }
@@ -553,14 +604,12 @@ function handleEnemies(){
         }
     }
 
-    if (score >= 5000 && !bossSpawned) {
-        enemies.push(new Enemy(cellSize, 'boss'));
+    if (score >= gameModeConfig[gameMode].bossSpawnScore && !bossSpawned) {        enemies.push(new Enemy(cellSize, 'boss', gameMode));
         boss = enemies[enemies.length - 1];
         bossSpawned = true;
     }
 
-    if (frame % enemiesInterval === 0 && score < winningScore && !bossSpawned){
-        
+    if (frame % enemiesInterval === 0 && score < gameModeConfig[gameMode].winningScore && !bossSpawned){        
         let verticalPosition;
         if (enemiesSpawnedCount < 3) {
             verticalPosition = 3 * cellSize + cellGap;
@@ -578,17 +627,30 @@ function handleEnemies(){
 
         let randomType = spawnPool[Math.floor(Math.random() * spawnPool.length)];
         
-        enemies.push(new Enemy(verticalPosition, randomType));
+        enemies.push(new Enemy(verticalPosition, randomType, gameMode));
         
         enemiesSpawnedCount++;
 
-        if (enemiesInterval > 160) enemiesInterval -= 20;
+        const spawnTiers = gameModeConfig[gameMode].spawnTiers;
+        
+        let minInterval = 250;
+        let decreaseAmount = 20;
+
+        for (const tier of spawnTiers) {
+            if (score >= tier.scoreThreshold) {
+                minInterval = tier.minInterval;
+                decreaseAmount = tier.decreaseAmount;
+                break;
+            }
+        }
+
+        if (enemiesInterval > minInterval) enemiesInterval -= decreaseAmount;
     }
 }
 
 // resources
-amounts = [30, 40, 50];
-lategame = [80, 90, 100];
+const amounts = [30, 40, 50];
+const lategame = [80, 90, 100];
 class Resource {
     constructor(){
         this.x = Math.random() * (canvas.width - cellSize);
@@ -606,13 +668,12 @@ class Resource {
         ctx.fillStyle = 'yellow';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = '15px Are You Serious';
+        ctx.font = '15px "Are You Serious"';
         ctx.fillText(this.amount, this.x + 15, this.y + 25);
     }
 }
 function handleResources(){
-    if (frame % 600 === 0 && frame > 100 && score < winningScore){
-        resources.push(new Resource());
+    if (frame % 600 === 0 && frame > 100 && score < gameModeConfig[gameMode].winningScore){        resources.push(new Resource());
     }
     for (let i = 0; i < resources.length; i++){
         resources[i].draw();
@@ -627,7 +688,6 @@ function handleResources(){
 }
 
 // win effects
-
 class WinParticle {
     constructor(type) {
         this.type = type;
@@ -698,19 +758,29 @@ function handleWinParticles() {
 function handleGameStatus(){
     if (!bossSpawned) {
         ctx.fillStyle = 'green';
-        ctx.font = '30px Are You Serious';
+        ctx.font = '30px "Are You Serious"';
         ctx.fillText('Resources: ' + numberOfResources, 335, 40);
         ctx.fillText('Score: ' + score, 335, 80);
     }
 
-    if (gameOver){
-        ctx.fillStyle = 'black';
-        ctx.font = '90px Are You Serious';
-        ctx.fillText('out. NOW', 200, 330);
-    }
+    ctx.textAlign = 'center';
+    if (gameOver){
+        if (gameOverOpacity < 1) gameOverOpacity += 0.01;
+        ctx.globalAlpha = gameOverOpacity;
+
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'red';
+        ctx.font = '90px "Are You Serious"';
+        ctx.fillText('out. NOW', canvas.width/2, 330);
+        ctx.fillStyle = 'white';
+        ctx.font = '30px "Are You Serious"';
+        ctx.fillText('Click to Restart', canvas.width/2, 380);
+
+        ctx.globalAlpha = 1;
+    }
     
-    if (score > winningScore && enemies.length === 0){
-        if (frame % 3 === 0) {
+    if (score > gameModeConfig[gameMode].winningScore && enemies.length === 0){        if (frame % 3 === 0) {
             winParticles.push(new WinParticle('confetti'));
         }
         if (frame % 25 === 0) {
@@ -721,22 +791,36 @@ function handleGameStatus(){
         
         ctx.globalAlpha = winScreenOpacity;
         
-        ctx.fillStyle = 'black';
-        ctx.font = '60px Are You Serious';
-        ctx.fillText ('You Won!', 200, 330);
-        ctx.font = '30px Are You Serious';
-        ctx.fillText ('You Won with ' + score + ' points!', 200, 365);
+        ctx.fillStyle = 'rgba(0,0,0,0.7)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'gold';
+        ctx.font = '60px "Are You Serious"';
+        ctx.fillText ('You Won!', canvas.width/2, 280);
+        ctx.font = '30px "Are You Serious"';
+        ctx.fillText ('Mode: ' + gameMode, canvas.width/2, 330);
+        ctx.fillText ('Score: ' + score, canvas.width/2, 365);
+        
+        ctx.fillStyle = 'white';
+        
+        ctx.fillText('Click to Continue', canvas.width/2, 480);
         
         ctx.globalAlpha = 1;
     }
+    ctx.textAlign = 'left';
 }
 
 canvas.addEventListener('click', function(){
+    
     if (!gameStarted) {
         if (collision(mouse, startButton)) {
             gameStarted = true;
-            animate();
+            resetGame(gameMode);
         }
+        return;
+    }
+
+    if (gameOver || (score > gameModeConfig[gameMode].winningScore && enemies.length === 0)) {        gameStarted = false;
+        updateButtonColor();
         return;
     }
 
@@ -752,7 +836,6 @@ canvas.addEventListener('click', function(){
                 const stats = towerStats[tower.chosenTower];
                 let refund = 0;
                 
-                // Check health for refund percentage
                 if (tower.health < (stats.health * 0.5)) {
                     refund = Math.floor(stats.cost * 0.2);
                 } else {
@@ -784,8 +867,7 @@ canvas.addEventListener('click', function(){
         towers.push(new Tower(gridPositionX, gridPositionY));
         numberOfResources -= towerCost;
     } else {
-        floatingMessages.push(new floatingMessage('You need ' + towerCost + ' Resources', mouse.x, mouse.y, 20, 'red'))
-    }
+        floatingMessages.push(new floatingMessage('You need ' + (towerCost - numberOfResources) + ' more Resources!', mouse.x, mouse.y, 20, 'red'))    }
 });
 
 function drawStartScreen() {
@@ -794,15 +876,19 @@ function drawStartScreen() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = 'white';
-    ctx.font = '90px Are You Serious';
+    ctx.font = '90px "Are You Serious"';
     ctx.textAlign = 'center';
     ctx.fillText('The Frontlines (Prequel)', canvas.width/2, 280);
     
     ctx.fillStyle = 'darkgreen';
     ctx.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
     ctx.fillStyle = 'white';
-    ctx.font = '40px Are You Serious';
+    ctx.font = '40px "Are You Serious"';
     ctx.fillText('Start', canvas.width/2, 425);
+
+    ctx.font = '30px "Are You Serious"';
+    ctx.fillText('Mode: ' + gameMode, canvas.width/2, 520);
+
     ctx.textAlign = 'left';
 }
 
@@ -812,7 +898,7 @@ function drawSellButton(){
     ctx.fillRect(sellButton.x, sellButton.y, sellButton.width, sellButton.height);
     
     ctx.fillStyle = 'white';
-    ctx.font = '50px Are You Serious';
+    ctx.font = '50px "Are You Serious"';
     ctx.textAlign = 'center';
     ctx.fillText('$', sellButton.x + sellButton.width / 2, sellButton.y + 58);
     ctx.textAlign = 'left';
@@ -850,38 +936,125 @@ function handleBossBar(){
     
     const healthPercent = boss.health / boss.maxHealth;
     
-    ctx.fillStyle = 'maroon';
+    ctx.fillStyle = gameModeConfig[gameMode].enemyColors.boss;
     ctx.fillRect(barX + 2, barY + 2, (barWidth - 4) * healthPercent, barHeight - 4);
     
     ctx.fillStyle = 'white';
-    ctx.font = '25px Are You Serious';
+    ctx.font = '25px "Are You Serious"';
     ctx.textAlign = 'center';
-    const text = "Destroyer: " + Math.floor(boss.health) + " / " + boss.maxHealth;
+    const bossName = gameModeConfig[gameMode].bossName || 'Destroyer';
+const text = bossName + ": " + Math.floor(boss.health) + " / " + boss.maxHealth;
     ctx.fillText(text, barX + barWidth / 2, barY + 50);
     ctx.textAlign = 'left';
 
     ctx.globalAlpha = 1;
 }
 
-function animate(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgb(210, 200, 190)';
-    ctx.fillRect(0,0,controlsBar.width, controlsBar.height);
-    handleGameGrid();
-    handleResources();
-    handleTowers();
-    handleProjectiles();
-    handleEnemies();
-    handleWinParticles();
-    chooseTower();
-    drawSellButton();
-    handleGameStatus();
-    handleBossBar();
-    handleFloatingMessages();
-    frame++;
-    if (!gameOver) requestAnimationFrame(animate);
+function createGameModeButtons() {
+    const modes = ['Normal', 'Hard', 'Nightmare'];
+    let topPosition = 50; 
+
+    modes.forEach((mode, index) => {
+        const button = document.createElement('button');
+        button.id = 'gameModeButton_' + mode;
+        button.textContent = mode;
+        
+        button.style.position = 'absolute';
+        button.style.top = `calc(50% + ${index * 100 - 100}px)`;
+        button.style.left = 'calc(50% - 450px - 160px)';
+        button.style.transform = 'translateY(-50%)';
+        button.style.width = '140px';
+        button.style.height = '90px';
+        button.style.fontFamily = '"Are You Serious", cursive';
+        button.style.fontSize = '18px';
+        button.style.color = 'white';
+        button.style.border = '3px solid black';
+        button.style.borderRadius = '8px';
+        button.style.cursor = 'pointer';
+        button.style.textShadow = '2px 2px #000';
+        
+        button.style.backgroundColor = gameModeConfig[mode].enemyColors.base;
+        
+        button.addEventListener('click', () => {
+            if (gameStarted) return;
+            gameMode = mode;
+            
+            document.querySelectorAll('[id^=gameModeButton_]').forEach(btn => {
+                btn.style.border = '3px solid black';
+            });
+            button.style.border = '5px solid gold';
+        });
+
+        document.body.appendChild(button);
+    });
 }
-drawStartScreen();
+
+function updateButtonColor() {
+    const gameModeButton = document.getElementById('gameModeButton');
+    if (!gameModeButton) return;
+
+    gameModeButton.textContent = gameMode;
+    gameModeButton.style.backgroundColor = gameModeConfig[gameMode].enemyColors.base;
+}
+
+function resetGame(selectedMode) {
+    gameMode = selectedMode;
+    
+    const config = gameModeConfig[gameMode];
+    numberOfResources = config.initialResources;
+    enemiesInterval = config.initialEnemyInterval;
+    towerStats = { ...config.towerStats };
+
+    frame = 0;
+    gameOver = false;
+    score = 0;
+    chosenTower = 1;
+    bossSpawned = false;
+    bossBarOpacity = 0;
+    winScreenOpacity = 0;
+    gameOverOpacity = 0;
+    sellMode = false;
+    boss = null;
+    enemiesSpawnedCount = 0;
+    progressionSaved = false;
+    
+    towers.length = 0;
+    enemies.length = 0;
+    projectiles.length = 0;
+    resources.length = 0;
+    winParticles.length = 0;
+    floatingMessages.length = 0;
+}
+
+function gameLoop(){
+    if (!gameStarted) {
+        drawStartScreen();
+    } else if (!gameOver) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgb(210, 200, 190)';
+        ctx.fillRect(0, 100, canvas.width, canvas.height - 100);
+        ctx.fillStyle = 'rgb(200, 190, 180)';
+        ctx.fillRect(0,0,controlsBar.width, controlsBar.height);
+        
+        handleGameGrid();
+        handleResources();
+        handleTowers();
+        handleProjectiles();
+        handleEnemies();
+        handleWinParticles();
+        chooseTower();
+        drawSellButton();
+        handleGameStatus();
+        handleBossBar();
+        handleFloatingMessages();
+        frame++;
+    } else {
+        handleGameStatus();
+    }
+    
+    requestAnimationFrame(gameLoop);
+}
+
 
 function collision(first, second){
     if (    !(  first.x > second.x + second.width ||
@@ -896,3 +1069,9 @@ function collision(first, second){
 window.addEventListener('resize', function(){
     canvasPosition = canvas.getBoundingClientRect();
 })
+
+createGameModeButtons();
+
+document.getElementById('gameModeButton_Normal').style.border = '5px solid gold';
+
+gameLoop();
