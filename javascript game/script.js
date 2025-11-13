@@ -16,20 +16,23 @@ const gameModeConfig = {
             base: { health: 100, damage: 15, speed: { min: 0.4, max: 0.8 } },
             fast: { health: 60, damage: 10, speed: { min: 0.8, max: 1.5 } },
             tank: { health: 300, damage: 25, speed: { min: 0.3, max: 0.6 } },
-            boss: { health: 10000, damage: 1000, speed: { min: 0.2, max: 0.4 } }
+            boss: { health: 10000, damage: 1000, speed: { min: 0.35, max: 0.35 } }
         },
         towerStats: {
             1: { cost: 100, health: 100, damage: 10, attackRate: 20 },
-            2: { cost: 125, health: 200, damage: 100, attackRate: 250 },
-            3: { cost: 250, health: 125, damage: 40, attackRate: 160 },
-            4: { cost: 450, health: 175, damage: 50, attackRate: 160 },
+            2: { cost: 650, health: 200, damage: 600, attackRate: 300 },
+            3: { cost: 150, health: 125, damage: 20, attackRate: 160 },
+            4: { cost: 300, health: 175, damage: 35, attackRate: 160 },
+            5: { cost: 800, health: 120, damage: 10, attackRate: 10 },
+            6: { cost: 500, health: 300, damage: 30, attackRate: 120 },
+            7: { cost: 200, health: 100, damage: 5, attackRate: 6 },
         },
         initialResources: 400,
         initialEnemyInterval: 650,
-        spawnTiers: [ 
-            { scoreThreshold: 1500, minInterval: 24,  decreaseAmount: 3 },
+        spawnTiers: [
+            { scoreThreshold: 10, minInterval: 30,  decreaseAmount: 300 },
             { scoreThreshold: 300,  minInterval: 150, decreaseAmount: 10 },
-            { scoreThreshold: 0,    minInterval: 250, decreaseAmount: 20 } 
+            { scoreThreshold: 0,    minInterval: 250, decreaseAmount: 20 }
         ],
         bossSpawnScore: 5000,
         winningScore: 5500
@@ -46,23 +49,26 @@ const gameModeConfig = {
             base: { health: 200, damage: 15, speed: { min: 0.5, max: 0.9 } },
             fast: { health: 120, damage: 15, speed: { min: 1.0, max: 1.8 } },
             tank: { health: 600, damage: 35, speed: { min: 0.4, max: 0.7 } },
-            boss: { health: 25000, damage: 1500, speed: { min: 0.3, max: 0.5 } }
+            boss: { health: 35000, damage: 1500, speed: { min: 1, max: 1 } }
         },
         towerStats: {
             1: { cost: 100, health: 120, damage: 15, attackRate: 20 },
-            2: { cost: 125, health: 250, damage: 150, attackRate: 250 },
-            3: { cost: 250, health: 165, damage: 60, attackRate: 160 },
-            4: { cost: 450, health: 215, damage: 75, attackRate: 160 },
+            2: { cost: 650, health: 250, damage: 900, attackRate: 300 },
+            3: { cost: 250, health: 165, damage: 30, attackRate: 160 },
+            4: { cost: 300, health: 215, damage: 55, attackRate: 160 },
+            5: { cost: 800, health: 120, damage: 15, attackRate: 10 },
+            6: { cost: 500, health: 400, damage: 45, attackRate: 110 },
+            7: { cost: 2000, health: 120, damage: 90, attackRate: 8 },
         },
         initialResources: 450,
         initialEnemyInterval: 550,
-        spawnTiers: [ 
-            { scoreThreshold: 3000, minInterval: 22,  decreaseAmount: 3 },
+        spawnTiers: [
+            { scoreThreshold: 3000, minInterval: 27,  decreaseAmount: 3 },
             { scoreThreshold: 500,  minInterval: 135, decreaseAmount: 10 },
             { scoreThreshold: 0,    minInterval: 200, decreaseAmount: 20 }
         ],
-        bossSpawnScore: 7500,
-        winningScore: 8000
+        bossSpawnScore: 6500,
+        winningScore: 7500
     },
     'Nightmare': {
         bossName: 'Destroyer Mk III',
@@ -75,19 +81,22 @@ const gameModeConfig = {
         enemyStats: {
             base: { health: 400, damage: 15, speed: { min: 0.6, max: 1.0 } },
             fast: { health: 240, damage: 20, speed: { min: 1.2, max: 2.0 } },
-            tank: { health: 1200, damage: 45, speed: { min: 0.5, max: 0.8 } },
-            boss: { health: 75000, damage: 2000, speed: { min: 0.4, max: 0.6 } }
+            tank: { health: 1200, damage: 45, speed: { min: 0.4, max: 0.65 } },
+            boss: { health: 60000, damage: 2000, speed: { min: 0.5, max: 0.5 } }
         },
         towerStats: {
             1: { cost: 125, health: 150, damage: 20, attackRate: 20 },
-            2: { cost: 160, health: 300, damage: 200, attackRate: 250 },
-            3: { cost: 375, health: 210, damage: 80, attackRate: 160 },
-            4: { cost: 600, health: 250, damage: 100, attackRate: 160 },
+            2: { cost: 780, health: 300, damage: 1200, attackRate: 300 },
+            3: { cost: 180, health: 210, damage: 40, attackRate: 160 },
+            4: { cost: 600, health: 250, damage: 75, attackRate: 160 },
+            5: { cost: 1000, health: 120, damage: 20, attackRate: 10 },
+            6: { cost: 600, health: 500, damage: 60, attackRate: 100 },
+            7: { cost: 2400, health: 150, damage: 120, attackRate: 7 },
         },
         initialResources: 500,
         initialEnemyInterval: 450,
-        spawnTiers: [ 
-            { scoreThreshold: 4500, minInterval: 20,  decreaseAmount: 3 },
+        spawnTiers: [
+            { scoreThreshold: 4500, minInterval: 25,  decreaseAmount: 2 },
             { scoreThreshold: 750,  minInterval: 120,  decreaseAmount: 10 },
             { scoreThreshold: 0,    minInterval: 150, decreaseAmount: 20 }
         ],
@@ -137,6 +146,7 @@ const enemies = [];
 const projectiles = [];
 const resources = [];
 const winParticles = [];
+const spawnIndicators = [];
 
 // mouse
 const mouse = {
@@ -211,11 +221,14 @@ class Projectile {
         this.x += this.speed
     }
     draw(){
+        let color = 'gold';
         if (this.isPiercing) {
-            ctx.fillStyle = 'cyan';
-        } else {
-            ctx.fillStyle = 'gold';
+            color = 'cyan';
         }
+        if (this.power === towerStats[6]?.damage) color = '#556B2F';
+        if (this.power === towerStats[7]?.damage) color = '#00FFFF';
+
+        ctx.fillStyle = color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
         ctx.fill();
@@ -239,7 +252,7 @@ function handleProjectiles(){
                         enemies[j].health -= projectiles[i].power;
                         projectiles[i].hitEnemies.push(enemies[j]);
                     }
-                } 
+                }
                 else {
                     enemies[j].health -= projectiles[i].power;
                     projectiles.splice(i, 1);
@@ -263,7 +276,6 @@ class Tower {
         this.chosenTower = chosenTower;
 
         const stats = towerStats[this.chosenTower];
-        
         this.health = stats.health;
         this.damage = stats.damage;
         this.attackRate = stats.attackRate;
@@ -274,22 +286,28 @@ class Tower {
             this.burstTimer = 0;
         }
     }
-    
+   
     draw(){
         if (this.chosenTower === 1) {
             ctx.fillStyle = 'darkgreen';
         } else if (this.chosenTower === 2) {
-            ctx.fillStyle = 'gray';
+            ctx.fillStyle = '#454545';
         } else if (this.chosenTower === 3) {
             ctx.fillStyle = '#8B4513';
         } else if (this.chosenTower === 4) {
             ctx.fillStyle = 'navy';
+        } else if (this.chosenTower === 5) {
+            ctx.fillStyle = 'maroon';
+        } else if (this.chosenTower === 6) {
+            ctx.fillStyle = 'peru';
+        } else if (this.chosenTower === 7) {
+            ctx.fillStyle = 'purple';
         } else {
             ctx.fillStyle = 'gray';
         }
-        
+       
         ctx.fillRect(this.x, this.y, this.width, this.height);
-        
+       
         ctx.fillStyle = 'white';
         ctx.font = '20px "Are You Serious"';
         ctx.fillText(Math.floor(this.health), this.x + 2, this.y + 22);
@@ -310,7 +328,6 @@ class Tower {
                     if (this.timer >= this.attackRate) {
                         this.timer = 0;
                         this.burstShotsLeft = 3;
-                        
                         projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage));
                         this.burstShotsLeft--;
                     }
@@ -320,7 +337,7 @@ class Tower {
                 this.timer++;
                 if (this.timer >= this.attackRate){
                     this.timer = 0;
-                    let isPiercing = (this.chosenTower === 4);
+                    let isPiercing = (this.chosenTower === 4 || this.chosenTower === 7);
                     projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage, isPiercing));
                 }
             }
@@ -351,28 +368,29 @@ function handleTowers(){
         for (let j = 0; j < enemies.length; j++) {
             let enemy = enemies[j];
             let tower = towers[i];
-            
+           
             if (enemy.enemyType === 'boss') {
-                if (tower.y >= enemy.y && tower.y < (enemy.y + enemy.height)) {
-                    if (tower.chosenTower === 1) {
+                if (tower.chosenTower === 1) {
+                    if (tower.y >= enemy.y && tower.y < (enemy.y + enemy.height)) {
                         if (enemy.x < tower.x + (cellSize * 3)) {
                             enemyInRow = true;
                             break;
                         }
-                    } else {
-                        enemyInRow = true;
-                        break;
                     }
                 }
+                else if (tower.y >= enemy.y && tower.y < (enemy.y + enemy.height)) {
+                    enemyInRow = true;
+                    break;
+                }
             }
-
-            if (enemy.enemyType !== 'boss' && enemy.y === tower.y) {
+            else if (enemy.enemyType !== 'boss' && enemy.y === tower.y) {
                 if (tower.chosenTower === 1) {
                     if (enemy.x < tower.x + (cellSize * 3)) {
                         enemyInRow = true;
                         break;
                     }
-                } else {
+                }
+                else {
                     enemyInRow = true;
                     break;
                 }
@@ -394,7 +412,7 @@ function handleTowers(){
                 let deadTower = towers[i];
                 towers.splice(i, 1);
                 i--;
-                
+               
                 for (let k = 0; k < enemies.length; k++) {
                     if (collision(deadTower, enemies[k])) {
                         enemies[k].movement = enemies[k].speed;
@@ -406,105 +424,62 @@ function handleTowers(){
     }
 }
 
+const towerCardMap = [
+    { card: 'card1', towerIndex: 1, name: 'Slasher', color: 'darkgreen' },
+    { card: 'card2', towerIndex: 3, name: 'Soldier', color: '#8B4513' },
+    { card: 'card3', towerIndex: 4, name: 'Archer', color: 'navy' },
+    { card: 'card4', towerIndex: 6, name: 'Crook Boss', color: 'peru' },
+    { card: 'card5', towerIndex: 2, name: 'Sniper', color: '#454545' },
+    { card: 'card6', towerIndex: 5, name: 'Minigunner', color: 'maroon' },
+    { card: 'card7', towerIndex: 7, name: 'Accel', color: 'purple' }
+];
+
 // selecting towers
-const card1 = {
-    x: 10,
-    y: 10,
-    width: 70,
-    height: 85,
-}
-const card2 = {
-    x: 90,
-    y: 10,
-    width: 70,
-    height: 85,
-}
-const card3 = {
-    x: 170,
-    y: 10,
-    width: 70,
-    height: 85,
-}
-const card4 = {
-    x: 250,
-    y: 10,
-    width: 70,
-    height: 85,
-}
+const card1 = { x: 10, y: 10, width: 70, height: 85 }
+const card2 = { x: 90, y: 10, width: 70, height: 85 }
+const card3 = { x: 170, y: 10, width: 70, height: 85 }
+const card4 = { x: 250, y: 10, width: 70, height: 85 }
+const card5 = { x: 330, y: 10, width: 70, height: 85 }
+const card6 = { x: 410, y: 10, width: 70, height: 85 }
+const card7 = { x: 490, y: 10, width: 70, height: 85 }
+
+const cardObjects = { card1, card2, card3, card4, card5, card6, card7 };
 
 function chooseTower(){
-    let card1stroke = 'black'
-    let card2stroke = 'black'
-    let card3stroke = 'black'
-    let card4stroke = 'black'
+    let strokes = {};
+    towerCardMap.forEach(item => {
+        strokes[item.card + 'stroke'] = 'black';
+        if(collision(mouse, cardObjects[item.card]) && mouse.clicked){
+            chosenTower = item.towerIndex;
+        }
+    });
 
-    if(collision(mouse, card1) && mouse.clicked){
-        chosenTower = 1;
-    } else if (collision(mouse, card2) && mouse.clicked){
-        chosenTower = 2;
-    } else if (collision(mouse, card3) && mouse.clicked){
-        chosenTower = 3;
-    } else if (collision(mouse, card4) && mouse.clicked){
-        chosenTower = 4;
-    }
-
-    if (chosenTower === 1){
-        card1stroke = 'gold'
-    } else if (chosenTower === 2){
-        card2stroke = 'gold'
-    } else if (chosenTower === 3){
-        card3stroke = 'gold'
-    } else if (chosenTower === 4){
-        card4stroke = 'gold'
+    const activeCard = towerCardMap.find(item => item.towerIndex === chosenTower);
+    if (activeCard) {
+        strokes[activeCard.card + 'stroke'] = 'gold';
     }
 
     ctx.lineWidth = 2;
     ctx.textAlign = 'center';
 
-    ctx.fillStyle = 'darkgreen';
-    ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
-    ctx.strokeStyle = card1stroke;
-    ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
-    
-    ctx.fillStyle = 'white';
-    ctx.font = '16px "Are You Serious"';
-    ctx.fillText('Slasher', card1.x + card1.width / 2, card1.y + 20);
-    ctx.font = '14px "Are You Serious"';
-    ctx.fillText(towerStats[1]?.cost || 'N/A', card1.x + card1.width / 2, card1.y + card1.height - 8);
+    towerCardMap.forEach(item => {
+        const card = cardObjects[item.card];
+        const cost = towerStats[item.towerIndex]?.cost || 'N/A';
+        const strokeColor = strokes[item.card + 'stroke'];
 
-    ctx.fillStyle = 'gray';
-    ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-    ctx.strokeStyle = card2stroke;
-    ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
-    
-    ctx.fillStyle = 'white';
-    ctx.font = '16px "Are You Serious"';
-    ctx.fillText('Sniper', card2.x + card2.width / 2, card2.y + 20);
-    ctx.font = '14px "Are You Serious"';
-    ctx.fillText(towerStats[2]?.cost || 'N/A', card2.x + card2.width / 2, card2.y + card2.height - 8);
+        ctx.fillStyle = item.color;
+        ctx.fillRect(card.x, card.y, card.width, card.height);
 
-    ctx.fillStyle = '#8B4513';
-    ctx.fillRect(card3.x, card3.y, card3.width, card3.height);
-    ctx.strokeStyle = card3stroke;
-    ctx.strokeRect(card3.x, card3.y, card3.width, card3.height);
-    
-    ctx.fillStyle = 'white';
-    ctx.font = '16px "Are You Serious"';
-    ctx.fillText('Soldier', card3.x + card3.width / 2, card3.y + 20);
-    ctx.font = '14px "Are You Serious"';
-    ctx.fillText(towerStats[3]?.cost || 'N/A', card3.x + card3.width / 2, card3.y + card3.height - 8);
-
-    ctx.fillStyle = 'navy';
-    ctx.fillRect(card4.x, card4.y, card4.width, card4.height);
-    ctx.strokeStyle = card4stroke;
-    ctx.strokeRect(card4.x, card4.y, card4.width, card4.height);
-    
-    ctx.fillStyle = 'white';
-    ctx.font = '16px "Are You Serious"';
-    ctx.fillText('Archer', card4.x + card4.width / 2, card4.y + 20);
-    ctx.font = '14px "Are You Serious"';
-    ctx.fillText(towerStats[4]?.cost || 'N/A', card4.x + card4.width / 2, card4.y + card4.height - 8);
-    
+        ctx.strokeStyle = strokeColor;
+        ctx.strokeRect(card.x, card.y, card.width, card.height);
+       
+        ctx.fillStyle = 'white';
+        ctx.font = '16px "Are You Serious"';
+        ctx.fillText(item.name, card.x + card.width / 2, card.y + 20);
+        ctx.font = '14px "Are You Serious"';
+        ctx.fillText(cost, card.x + card.width / 2, card.y + card.height - 8);
+    });
+   
     ctx.textAlign = 'left';
 }
 
@@ -543,10 +518,67 @@ function handleFloatingMessages(){
     }
 }
 
+// spawn indicator
+class SpawnIndicator {
+    constructor(y, height = cellSize - cellGap * 2) {
+        this.x = canvas.width - 50;
+        this.y = y;
+        this.width = 50;
+        this.height = height;
+        this.opacity = 0;
+        this.maxOpacity = 0.7;
+        this.duration = 40;
+        this.timer = 0;
+        this.phase = 'fadingIn';
+    }
+
+    update() {
+        this.timer++;
+        if (this.phase === 'fadingIn') {
+            this.opacity = (this.timer / (this.duration / 2)) * this.maxOpacity;
+            if (this.timer >= this.duration / 2) {
+                this.phase = 'fadingOut';
+            }
+        } else if (this.phase === 'fadingOut') {
+            this.opacity = ((this.duration - this.timer) / (this.duration / 2)) * this.maxOpacity;
+        }
+       
+        if (this.opacity < 0) this.opacity = 0;
+    }
+
+    draw() {
+        if (this.opacity <= 0) return;
+       
+        const gradient = ctx.createLinearGradient(this.x, 0, this.x + this.width, 0);
+
+        gradient.addColorStop(0, `rgba(255, 255, 0, 0)`);
+        gradient.addColorStop(0.5, `rgba(255, 255, 0, ${this.opacity * 0.5})`);
+        gradient.addColorStop(1, `rgba(255, 255, 0, ${this.opacity})`);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    isDone() {
+        return this.timer >= this.duration;
+    }
+}
+
+function handleSpawnIndicators(){
+    for (let i = 0; i < spawnIndicators.length; i++){
+        spawnIndicators[i].update();
+        spawnIndicators[i].draw();
+        if (spawnIndicators[i].isDone()){
+            spawnIndicators.splice(i, 1);
+            i--;
+        }
+    }
+}
+
 // enemies
 class Enemy {
     constructor(verticalPosition, enemyType = 'base', gameMode){
-        this.x = canvas.width;
+        this.x = canvas.width + 10;
         this.y = verticalPosition;
         this.width = cellSize - cellGap * 2;
         this.height = cellSize - cellGap * 2;
@@ -578,7 +610,7 @@ class Enemy {
     draw(){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
-        
+       
         ctx.fillStyle = 'white';
         ctx.font = '20px "Are You Serious"';
         ctx.fillText(Math.floor(this.health), this.x + 2, this.y + 22);
@@ -597,16 +629,18 @@ function handleEnemies(){
             numberOfResources += gainedResources;
             score += gainedResources;
             floatingMessages.push(new floatingMessage('+' + gainedResources, enemies[i].x, enemies[i].y, 20, 'black'))
-            floatingMessages.push(new floatingMessage('+' + gainedResources, 137.5, 24, 20, 'black'))
+            floatingMessages.push(new floatingMessage('+' + gainedResources, 532.5, 24, 20, 'black'))
 
             enemies.splice(i, 1);
             i--;
         }
     }
 
-    if (score >= gameModeConfig[gameMode].bossSpawnScore && !bossSpawned) {        enemies.push(new Enemy(cellSize, 'boss', gameMode));
+    if (score >= gameModeConfig[gameMode].bossSpawnScore && !bossSpawned) {
+        enemies.push(new Enemy(cellSize, 'boss', gameMode));
         boss = enemies[enemies.length - 1];
         bossSpawned = true;
+        spawnIndicators.push(new SpawnIndicator(boss.y, boss.height));
     }
 
     if (frame % enemiesInterval === 0 && score < gameModeConfig[gameMode].winningScore && !bossSpawned){        
@@ -616,7 +650,7 @@ function handleEnemies(){
         } else {
             verticalPosition = Math.floor(Math.random() * 5 + 1) * cellSize + cellGap;
         }
-        
+       
         let spawnPool = ['base'];
         if (score >= 300) {
             spawnPool.push('fast');
@@ -626,13 +660,12 @@ function handleEnemies(){
         }
 
         let randomType = spawnPool[Math.floor(Math.random() * spawnPool.length)];
-        
+       
         enemies.push(new Enemy(verticalPosition, randomType, gameMode));
-        
+        spawnIndicators.push(new SpawnIndicator(verticalPosition));
         enemiesSpawnedCount++;
 
         const spawnTiers = gameModeConfig[gameMode].spawnTiers;
-        
         let minInterval = 250;
         let decreaseAmount = 20;
 
@@ -649,15 +682,15 @@ function handleEnemies(){
 }
 
 // resources
-const amounts = [30, 40, 50];
-const lategame = [80, 90, 100];
+const amounts = [40, 50, 60];
+const lategame = [140, 150, 160];
 class Resource {
     constructor(){
         this.x = Math.random() * (canvas.width - cellSize);
         this.y = (Math.floor(Math.random() * 5) + 1) * cellSize + 25;
         this.width = cellSize * 0.6;
         this.height = cellSize * 0.6;
-        if (score >= 1200){
+        if (score >= 2000){
             this.amount = lategame[Math.floor(Math.random() * lategame.length)];
         }
         else {
@@ -673,14 +706,14 @@ class Resource {
     }
 }
 function handleResources(){
-    if (frame % 600 === 0 && frame > 100 && score < gameModeConfig[gameMode].winningScore){        resources.push(new Resource());
+    if (frame % 600 === 0 && frame >= 100 && score < gameModeConfig[gameMode].winningScore){        resources.push(new Resource());
     }
     for (let i = 0; i < resources.length; i++){
         resources[i].draw();
         if (resources[i] && mouse.x && mouse.y && collision(resources[i], mouse)){
             numberOfResources += resources[i].amount;
             floatingMessages.push(new floatingMessage('+' + resources[i].amount, resources[i].x, resources[i].y, 20, 'black'));
-            floatingMessages.push(new floatingMessage('+' + resources[i].amount, 137.5, 24, 20, 'black'));
+            floatingMessages.push(new floatingMessage('+' + resources[i].amount, 532.5, 24, 20, 'black'));
             resources.splice(i, 1);
             i--;
         }
@@ -693,7 +726,7 @@ class WinParticle {
         this.type = type;
         this.colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
-        
+       
         if (this.type === 'confetti') {
             this.x = Math.random() * canvas.width;
             this.y = -10;
@@ -728,7 +761,7 @@ class WinParticle {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fill();
-            
+           
             ctx.strokeStyle = '#555';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -759,27 +792,29 @@ function handleGameStatus(){
     if (!bossSpawned) {
         ctx.fillStyle = 'green';
         ctx.font = '30px "Are You Serious"';
-        ctx.fillText('Resources: ' + numberOfResources, 335, 40);
-        ctx.fillText('Score: ' + score, 335, 80);
+        ctx.fillText('Resources: ' + numberOfResources, 575, 40);
+        ctx.fillText('Score: ' + score, 575, 80);
     }
 
     ctx.textAlign = 'center';
-    if (gameOver){
+    if (gameOver){
         if (gameOverOpacity < 1) gameOverOpacity += 0.01;
         ctx.globalAlpha = gameOverOpacity;
 
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'red';
-        ctx.font = '90px "Are You Serious"';
-        ctx.fillText('out. NOW', canvas.width/2, 330);
-        ctx.fillStyle = 'white';
-        ctx.font = '30px "Are You Serious"';
-        ctx.fillText('Click to Restart', canvas.width/2, 380);
+
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'red';
+        ctx.font = '90px "Are You Serious"';
+        ctx.fillText('out. NOW', canvas.width/2, 330);
+        ctx.fillStyle = 'white';
+        ctx.font = '30px "Are You Serious"';
+        ctx.fillText('Click to Restart', canvas.width/2, 380);
+
 
         ctx.globalAlpha = 1;
-    }
-    
+    }
+   
     if (score > gameModeConfig[gameMode].winningScore && enemies.length === 0){        if (frame % 3 === 0) {
             winParticles.push(new WinParticle('confetti'));
         }
@@ -788,9 +823,9 @@ function handleGameStatus(){
         }
 
         if (winScreenOpacity < 1) winScreenOpacity += 0.01;
-        
+       
         ctx.globalAlpha = winScreenOpacity;
-        
+       
         ctx.fillStyle = 'rgba(0,0,0,0.7)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'gold';
@@ -799,18 +834,18 @@ function handleGameStatus(){
         ctx.font = '30px "Are You Serious"';
         ctx.fillText ('Mode: ' + gameMode, canvas.width/2, 330);
         ctx.fillText ('Score: ' + score, canvas.width/2, 365);
-        
+       
         ctx.fillStyle = 'white';
-        
+       
         ctx.fillText('Click to Continue', canvas.width/2, 480);
-        
+       
         ctx.globalAlpha = 1;
     }
     ctx.textAlign = 'left';
 }
 
 canvas.addEventListener('click', function(){
-    
+   
     if (!gameStarted) {
         if (collision(mouse, startButton)) {
             gameStarted = true;
@@ -835,13 +870,13 @@ canvas.addEventListener('click', function(){
                 const tower = towers[i];
                 const stats = towerStats[tower.chosenTower];
                 let refund = 0;
-                
+               
                 if (tower.health < (stats.health * 0.5)) {
                     refund = Math.floor(stats.cost * 0.2);
                 } else {
                     refund = Math.floor(stats.cost * 0.5);
                 }
-                
+               
                 numberOfResources += refund;
                 floatingMessages.push(new floatingMessage('+' + refund, tower.x, tower.y, 20, 'gold'));
                 towers.splice(i, 1);
@@ -879,7 +914,7 @@ function drawStartScreen() {
     ctx.font = '90px "Are You Serious"';
     ctx.textAlign = 'center';
     ctx.fillText('The Frontlines (Prequel)', canvas.width/2, 280);
-    
+   
     ctx.fillStyle = 'darkgreen';
     ctx.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
     ctx.fillStyle = 'white';
@@ -896,13 +931,13 @@ function drawSellButton(){
     ctx.lineWidth = 2;
     ctx.fillStyle = '#c91e1e';
     ctx.fillRect(sellButton.x, sellButton.y, sellButton.width, sellButton.height);
-    
+   
     ctx.fillStyle = 'white';
     ctx.font = '50px "Are You Serious"';
     ctx.textAlign = 'center';
     ctx.fillText('$', sellButton.x + sellButton.width / 2, sellButton.y + 58);
     ctx.textAlign = 'left';
-    
+   
     if (sellMode) {
         ctx.strokeStyle = 'gold';
     } else {
@@ -918,32 +953,32 @@ function handleBossBar(){
     } else {
         if (bossBarOpacity < 1) bossBarOpacity += 0.01;
     }
-    
+   
     if (bossBarOpacity <= 0) return;
 
     ctx.globalAlpha = bossBarOpacity;
 
-    const barX = 335;
+    const barX = 575;
     const barY = 10;
-    const barWidth = 450;
+    const barWidth = 210;
     const barHeight = 80;
 
     ctx.fillStyle = 'black';
     ctx.fillRect(barX, barY, barWidth, barHeight);
-    
+   
     ctx.fillStyle = 'gray';
     ctx.fillRect(barX + 2, barY + 2, barWidth - 4, barHeight - 4);
-    
+   
     const healthPercent = boss.health / boss.maxHealth;
-    
+   
     ctx.fillStyle = gameModeConfig[gameMode].enemyColors.boss;
     ctx.fillRect(barX + 2, barY + 2, (barWidth - 4) * healthPercent, barHeight - 4);
-    
+   
     ctx.fillStyle = 'white';
     ctx.font = '25px "Are You Serious"';
     ctx.textAlign = 'center';
     const bossName = gameModeConfig[gameMode].bossName || 'Destroyer';
-const text = bossName + ": " + Math.floor(boss.health) + " / " + boss.maxHealth;
+    const text = bossName + ": " + Math.floor(boss.health) + " / " + boss.maxHealth;
     ctx.fillText(text, barX + barWidth / 2, barY + 50);
     ctx.textAlign = 'left';
 
@@ -952,13 +987,13 @@ const text = bossName + ": " + Math.floor(boss.health) + " / " + boss.maxHealth;
 
 function createGameModeButtons() {
     const modes = ['Normal', 'Hard', 'Nightmare'];
-    let topPosition = 50; 
+    let topPosition = 50;
 
     modes.forEach((mode, index) => {
         const button = document.createElement('button');
         button.id = 'gameModeButton_' + mode;
         button.textContent = mode;
-        
+       
         button.style.position = 'absolute';
         button.style.top = `calc(50% + ${index * 100 - 100}px)`;
         button.style.left = 'calc(50% - 450px - 160px)';
@@ -972,13 +1007,13 @@ function createGameModeButtons() {
         button.style.borderRadius = '8px';
         button.style.cursor = 'pointer';
         button.style.textShadow = '2px 2px #000';
-        
+       
         button.style.backgroundColor = gameModeConfig[mode].enemyColors.base;
-        
+       
         button.addEventListener('click', () => {
             if (gameStarted) return;
             gameMode = mode;
-            
+           
             document.querySelectorAll('[id^=gameModeButton_]').forEach(btn => {
                 btn.style.border = '3px solid black';
             });
@@ -999,7 +1034,7 @@ function updateButtonColor() {
 
 function resetGame(selectedMode) {
     gameMode = selectedMode;
-    
+   
     const config = gameModeConfig[gameMode];
     numberOfResources = config.initialResources;
     enemiesInterval = config.initialEnemyInterval;
@@ -1017,13 +1052,14 @@ function resetGame(selectedMode) {
     boss = null;
     enemiesSpawnedCount = 0;
     progressionSaved = false;
-    
+   
     towers.length = 0;
     enemies.length = 0;
     projectiles.length = 0;
     resources.length = 0;
     winParticles.length = 0;
     floatingMessages.length = 0;
+    spawnIndicators.length = 0;
 }
 
 function gameLoop(){
@@ -1035,7 +1071,7 @@ function gameLoop(){
         ctx.fillRect(0, 100, canvas.width, canvas.height - 100);
         ctx.fillStyle = 'rgb(200, 190, 180)';
         ctx.fillRect(0,0,controlsBar.width, controlsBar.height);
-        
+       
         handleGameGrid();
         handleResources();
         handleTowers();
@@ -1046,15 +1082,15 @@ function gameLoop(){
         drawSellButton();
         handleGameStatus();
         handleBossBar();
+        handleSpawnIndicators();
         handleFloatingMessages();
         frame++;
     } else {
         handleGameStatus();
     }
-    
+   
     requestAnimationFrame(gameLoop);
 }
-
 
 function collision(first, second){
     if (    !(  first.x > second.x + second.width ||
