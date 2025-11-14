@@ -22,17 +22,17 @@ const gameModeConfig = {
             1: { cost: 100, health: 100, damage: 10, attackRate: 20 },
             2: { cost: 650, health: 200, damage: 600, attackRate: 300 },
             3: { cost: 150, health: 125, damage: 20, attackRate: 160 },
-            4: { cost: 300, health: 175, damage: 35, attackRate: 160 },
+            4: { cost: 500, health: 175, damage: 35, attackRate: 160 },
             5: { cost: 800, health: 120, damage: 10, attackRate: 10 },
-            6: { cost: 500, health: 300, damage: 30, attackRate: 120 },
-            7: { cost: 1250, health: 100, damage: 10, attackRate: 12 },
+            6: { cost: 600, health: 300, damage: 30, attackRate: 120 },
+            7: { cost: 1500, health: 100, damage: 10, attackRate: 8 },
         },
         initialResources: 400,
-        initialEnemyInterval: 650,
+        initialEnemyInterval: 550,
         spawnTiers: [
-            { scoreThreshold: 10, minInterval: 30,  decreaseAmount: 300 },
-            { scoreThreshold: 300,  minInterval: 150, decreaseAmount: 10 },
-            { scoreThreshold: 0,    minInterval: 250, decreaseAmount: 20 }
+            { scoreThreshold: 1500, minInterval: 30,  decreaseAmount: 5 },
+            { scoreThreshold: 300,  minInterval: 150, decreaseAmount: 15 },
+            { scoreThreshold: 0,    minInterval: 250, decreaseAmount: 25 }
         ],
         bossSpawnScore: 5000,
         winningScore: 5500
@@ -55,13 +55,13 @@ const gameModeConfig = {
             1: { cost: 100, health: 120, damage: 15, attackRate: 20 },
             2: { cost: 650, health: 250, damage: 900, attackRate: 300 },
             3: { cost: 150, health: 165, damage: 30, attackRate: 160 },
-            4: { cost: 300, health: 215, damage: 55, attackRate: 160 },
+            4: { cost: 500, health: 215, damage: 55, attackRate: 160 },
             5: { cost: 800, health: 120, damage: 15, attackRate: 10 },
-            6: { cost: 500, health: 400, damage: 45, attackRate: 110 },
-            7: { cost: 1250, health: 120, damage: 15, attackRate: 12 },
+            6: { cost: 600, health: 400, damage: 45, attackRate: 110 },
+            7: { cost: 1500, health: 120, damage: 15, attackRate: 8 },
         },
         initialResources: 450,
-        initialEnemyInterval: 550,
+        initialEnemyInterval: 500,
         spawnTiers: [
             { scoreThreshold: 3000, minInterval: 27,  decreaseAmount: 3 },
             { scoreThreshold: 500,  minInterval: 135, decreaseAmount: 10 },
@@ -90,8 +90,8 @@ const gameModeConfig = {
             3: { cost: 180, health: 210, damage: 40, attackRate: 160 },
             4: { cost: 600, health: 250, damage: 75, attackRate: 160 },
             5: { cost: 1000, health: 120, damage: 20, attackRate: 10 },
-            6: { cost: 600, health: 500, damage: 60, attackRate: 100 },
-            7: { cost: 1500, health: 150, damage: 20, attackRate: 12 },
+            6: { cost: 720, health: 500, damage: 60, attackRate: 100 },
+            7: { cost: 1800, health: 150, damage: 20, attackRate: 8 },
         },
         initialResources: 500,
         initialEnemyInterval: 450,
@@ -102,6 +102,35 @@ const gameModeConfig = {
         ],
         bossSpawnScore: 10000,
         winningScore: 11000
+    },
+    'Endless': {
+        bossName: 'Destroyer Mk IV',
+        enemyColors: {
+            base: '#616161',
+            fast: '#9E9E9E',
+            tank: '#424242',
+            boss: '#757575'
+        },
+        enemyStats: {
+            base: { health: 250, damage: 45, speed: { min: 0.4, max: 0.8 } },
+            fast: { health: 150, damage: 30, speed: { min: 0.8, max: 1.5 } },
+            tank: { health: 750, damage: 70, speed: { min: 0.3, max: 0.6 } },
+            boss: { health: 30000, damage: 2000, speed: { min: 0.3, max: 0.3 } }
+        },
+        towerStats: {
+            1: { cost: 125, health: 150, damage: 20, attackRate: 20 },
+            2: { cost: 780, health: 300, damage: 1200, attackRate: 300 },
+            3: { cost: 180, health: 210, damage: 40, attackRate: 160 },
+            4: { cost: 600, health: 250, damage: 75, attackRate: 160 },
+            5: { cost: 1000, health: 120, damage: 20, attackRate: 10 },
+            6: { cost: 720, health: 500, damage: 60, attackRate: 100 },
+            7: { cost: 1800, health: 150, damage: 20, attackRate: 8 },
+        },
+        winningScore: Infinity,
+        enemySpawnRate: 100,
+        enemySpawnMultiplier: 1.25,
+        spawnRateAcceleration: 0.995,
+        startingResources: 200
     }
 };
 
@@ -123,6 +152,10 @@ let sellMode = false;
 let boss = null;
 let enemiesSpawnedCount = 0;
 let gameStarted = false;
+let beatenModes = new Set();
+let hasSpawnedScoreMiniboss = false;
+let hasSpawnedBossMiniboss = false;
+let bossSpawnTime = 0;
 
 let towerStats = {};
 
@@ -447,10 +480,25 @@ const cardObjects = { card1, card2, card3, card4, card5, card6, card7 };
 
 function chooseTower(){
     let strokes = {};
+    
     towerCardMap.forEach(item => {
         strokes[item.card + 'stroke'] = 'black';
-        if(collision(mouse, cardObjects[item.card]) && mouse.clicked){
-            chosenTower = item.towerIndex;
+        const card = cardObjects[item.card];
+
+        const isMinigunner = item.towerIndex === 5;
+        const isMinigunnerLocked = isMinigunner && !beatenModes.has('Normal');
+        
+        const isAccel = item.towerIndex === 7;
+        const isAccelLocked = isAccel && !beatenModes.has('Hard');
+
+        if (collision(mouse, card) && mouse.clicked) {
+            if (isMinigunnerLocked) {
+                floatingMessages.push(new floatingMessage('Beat Normal to unlock!', mouse.x, mouse.y, 20, 'red'));
+            } else if (isAccelLocked) {
+                floatingMessages.push(new floatingMessage('Beat Hard to unlock!', mouse.x, mouse.y, 20, 'red'));
+            } else {
+                chosenTower = item.towerIndex;
+            }
         }
     });
 
@@ -467,17 +515,39 @@ function chooseTower(){
         const cost = towerStats[item.towerIndex]?.cost || 'N/A';
         const strokeColor = strokes[item.card + 'stroke'];
 
-        ctx.fillStyle = item.color;
-        ctx.fillRect(card.x, card.y, card.width, card.height);
+        const isMinigunner = item.towerIndex === 5;
+        const isMinigunnerLocked = isMinigunner && !beatenModes.has('Normal');
+        
+        const isAccel = item.towerIndex === 7;
+        const isAccelLocked = isAccel && !beatenModes.has('Hard');
+        
+        const isLocked = isMinigunnerLocked || isAccelLocked;
 
-        ctx.strokeStyle = strokeColor;
-        ctx.strokeRect(card.x, card.y, card.width, card.height);
-       
-        ctx.fillStyle = 'white';
-        ctx.font = '16px "Are You Serious"';
-        ctx.fillText(item.name, card.x + card.width / 2, card.y + 20);
-        ctx.font = '14px "Are You Serious"';
-        ctx.fillText(cost, card.x + card.width / 2, card.y + card.height - 8);
+        if (isLocked) {
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(card.x, card.y, card.width, card.height);
+            
+            ctx.strokeStyle = strokeColor;
+            ctx.strokeRect(card.x, card.y, card.width, card.height);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = '16px "Are You Serious"';
+            ctx.fillText('???', card.x + card.width / 2, card.y + 20);
+            ctx.font = '40px "Are You Serious"';
+            ctx.fillText('🔒', card.x + card.width / 2, card.y + 60);
+        } else {
+            ctx.fillStyle = item.color;
+            ctx.fillRect(card.x, card.y, card.width, card.height);
+            
+            ctx.strokeStyle = strokeColor;
+            ctx.strokeRect(card.x, card.y, card.width, card.height);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = '16px "Are You Serious"';
+            ctx.fillText(item.name, card.x + card.width / 2, card.y + 20);
+            ctx.font = '14px "Are You Serious"';
+            ctx.fillText(cost, card.x + card.width / 2, card.y + card.height - 8);
+        }
     });
    
     ctx.textAlign = 'left';
@@ -573,6 +643,22 @@ function handleSpawnIndicators(){
             i--;
         }
     }
+}
+
+// gamemodes
+function updateGameModeButtons() {
+    const modes = ['Normal', 'Hard', 'Nightmare', 'Endless'];
+    modes.forEach(mode => {
+        if (mode === 'Endless' && !beatenModes.has('Nightmare')) return;
+        const button = document.getElementById('gameModeButton_' + mode);
+        if (button) {
+            let buttonText = mode;
+            if (beatenModes.has(mode)) {
+                buttonText += ' 🏆';
+            }
+            button.textContent = buttonText;
+        }
+    });
 }
 
 // enemies
@@ -854,8 +940,22 @@ canvas.addEventListener('click', function(){
         return;
     }
 
-    if (gameOver || (score > gameModeConfig[gameMode].winningScore && enemies.length === 0)) {        gameStarted = false;
-        updateButtonColor();
+    if (gameOver || (score > gameModeConfig[gameMode].winningScore && enemies.length === 0)) {
+        if (!gameOver && score > gameModeConfig[gameMode].winningScore) {
+            beatenModes.add(gameMode);
+        }
+    
+        gameStarted = false;
+        createGameModeButtons();
+        document.querySelectorAll('[id^=gameModeButton_]').forEach(btn => {
+            if (btn.id === 'gameModeButton_' + gameMode) {
+                btn.style.border = '5px solid gold';
+            } else {
+                btn.style.border = '3px solid black';
+            }
+        });
+        updateGameModeButtons();
+    
         return;
     }
 
@@ -986,16 +1086,27 @@ function handleBossBar(){
 }
 
 function createGameModeButtons() {
-    const modes = ['Normal', 'Hard', 'Nightmare'];
+    const existingButtons = document.querySelectorAll('.gameModeUI');
+    existingButtons.forEach(btn => btn.remove());
+
+    const modes = ['Normal', 'Hard', 'Nightmare', 'Endless'];
     let topPosition = 50;
 
     modes.forEach((mode, index) => {
+        if (mode === 'Endless' && !beatenModes.has('Nightmare')) return;
+        
         const button = document.createElement('button');
         button.id = 'gameModeButton_' + mode;
-        button.textContent = mode;
+        button.classList.add('gameModeUI');
+        let buttonText = mode;
+        if (beatenModes.has(mode)) {
+            buttonText += ' 🏆';
+        }
+        button.textContent = buttonText;
        
         button.style.position = 'absolute';
-        button.style.top = `calc(50% + ${index * 100 - 100}px)`;
+        const buttonY = `calc(50% + ${index * 100 - 100}px)`;
+        button.style.top = buttonY;
         button.style.left = 'calc(50% - 450px - 160px)';
         button.style.transform = 'translateY(-50%)';
         button.style.width = '140px';
@@ -1021,15 +1132,44 @@ function createGameModeButtons() {
         });
 
         document.body.appendChild(button);
+
+        if (mode !== 'Endless') {
+            const winButton = document.createElement('button');
+            winButton.textContent = 'Win';
+            winButton.classList.add('gameModeUI');
+            
+            winButton.style.position = 'absolute';
+            winButton.style.top = buttonY;
+            winButton.style.left = 'calc(50% - 450px - 160px - 60px)';
+            winButton.style.transform = 'translateY(-50%)';
+            winButton.style.width = '50px';
+            winButton.style.height = '90px';
+            winButton.style.fontFamily = '"Are You Serious", cursive';
+            winButton.style.fontSize = '16px';
+            winButton.style.color = 'black';
+            winButton.style.backgroundColor = 'gold';
+            winButton.style.border = '3px solid black';
+            winButton.style.borderRadius = '8px';
+            winButton.style.cursor = 'pointer';
+
+            winButton.addEventListener('click', () => {
+                if (gameStarted) return;
+                beatenModes.add(mode);
+                
+                createGameModeButtons(); 
+                
+                document.querySelectorAll('[id^=gameModeButton_]').forEach(btn => {
+                    if (btn.id === 'gameModeButton_' + gameMode) {
+                        btn.style.border = '5px solid gold';
+                    } else {
+                        btn.style.border = '3px solid black';
+                    }
+                });
+            });
+
+            document.body.appendChild(winButton);
+        }
     });
-}
-
-function updateButtonColor() {
-    const gameModeButton = document.getElementById('gameModeButton');
-    if (!gameModeButton) return;
-
-    gameModeButton.textContent = gameMode;
-    gameModeButton.style.backgroundColor = gameModeConfig[gameMode].enemyColors.base;
 }
 
 function resetGame(selectedMode) {
