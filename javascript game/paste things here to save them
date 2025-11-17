@@ -1,4 +1,4 @@
-const canvas = document.getElementById('canvas1');
+/* const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 900;
 canvas.height = 600;
@@ -115,7 +115,7 @@ const gameModeConfig = {
             base: { health: 500, damage: 45, speed: { min: 0.4, max: 0.8 } },
             fast: { health: 300, damage: 30, speed: { min: 0.8, max: 1.5 } },
             tank: { health: 2500, damage: 70, speed: { min: 0.3, max: 0.6 } },
-            boss: { health: 1000000, damage: 2000, speed: { min: 0.2, max: 0.2 } }
+            boss: { health: 2000000, damage: 2000, speed: { min: 0.2, max: 0.2 } }
         },
         towerStats: {
             1: { cost: 100, health: 150, damage: 30, attackRate: 20 },
@@ -208,45 +208,6 @@ canvas.addEventListener('mousemove', function(e){
 canvas.addEventListener('mouseleave', function(){
     mouse.x = undefined;
     mouse.y = undefined;
-});
-
-// Keybinds
-const keyToTower = {
-    '1': 1, // Slasher (from card1)
-    '2': 3, // Soldier (from card2)
-    '3': 4, // Archer (from card3)
-    '4': 6, // Crook Boss (from card4)
-    '5': 2, // Sniper (from card5)
-    '6': 5, // Minigunner (from card6)
-    '7': 7, // Accel (from card7)
-};
-
-window.addEventListener('keydown', function(e) {
-    if (!gameStarted || gameOver) return;
-
-    if (keyToTower[e.key]) {
-        const towerIndex = keyToTower[e.key];
-        
-        const isMinigunner = towerIndex === 5;
-        const isMinigunnerLocked = isMinigunner && !beatenModes.has('Normal');
-        
-        const isAccel = towerIndex === 7;
-        const isAccelLocked = isAccel && !beatenModes.has('Hard');
-
-        if (isMinigunnerLocked) {
-            floatingMessages.push(new floatingMessage('Beat Normal to unlock!', canvas.width / 2, canvas.height / 2, 20, 'red'));
-        } else if (isAccelLocked) {
-            floatingMessages.push(new floatingMessage('Beat Hard to unlock!', canvas.width / 2, canvas.height / 2, 20, 'red'));
-        } else {
-            chosenTower = towerIndex;
-            sellMode = false;
-        }
-    }
-
-    if (e.key === 'Backspace') {
-        e.preventDefault();
-        sellMode = !sellMode;
-    }
 });
 
 // game board
@@ -404,7 +365,7 @@ class Tower {
                     this.timer++;
                     if (this.timer >= this.attackRate) {
                         this.timer = 0;
-                        this.burstShotsLeft = 3;
+                        this.burstShotsLeft = 5;
                         projectiles.push(new Projectile(this.x + 50, this.y + 50, this.damage));
                         this.burstShotsLeft--;
                     }
@@ -931,6 +892,7 @@ function handleGameStatus(){
         if (gameOverOpacity < 1) gameOverOpacity += 0.01;
         ctx.globalAlpha = gameOverOpacity;
 
+
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'red';
@@ -940,9 +902,10 @@ function handleGameStatus(){
         ctx.font = '30px "Are You Serious"';
         ctx.fillText('Click to Restart', canvas.width/2, 380);
 
+
         ctx.globalAlpha = 1;
     }
-
+   
     if (score > gameModeConfig[gameMode].winningScore && enemies.length === 0){        if (frame % 3 === 0) {
             winParticles.push(new WinParticle('confetti'));
         }
@@ -986,7 +949,7 @@ canvas.addEventListener('click', function(){
         if (!gameOver && score > gameModeConfig[gameMode].winningScore) {
             beatenModes.add(gameMode);
         }
-
+    
         gameStarted = false;
         createGameModeButtons();
         document.querySelectorAll('[id^=gameModeButton_]').forEach(btn => {
@@ -997,7 +960,7 @@ canvas.addEventListener('click', function(){
             }
         });
         updateGameModeButtons();
-
+    
         return;
     }
 
@@ -1293,3 +1256,5 @@ createGameModeButtons();
 document.getElementById('gameModeButton_Normal').style.border = '5px solid gold';
 
 gameLoop();
+
+*/
