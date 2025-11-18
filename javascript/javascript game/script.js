@@ -1051,12 +1051,12 @@ function drawStartScreen() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'rgb(50, 50, 50)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    
     ctx.fillStyle = 'white';
     ctx.font = '90px "Are You Serious"';
     ctx.textAlign = 'center';
     ctx.fillText('The Frontlines (Prequel)', canvas.width/2, 280);
-   
+
     ctx.fillStyle = 'darkgreen';
     ctx.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
     ctx.fillStyle = 'white';
