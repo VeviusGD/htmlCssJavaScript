@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bug Hunt</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; }
+        .card {
+            border: 2px solid black;
+            padding: 20px;
+            background-color: lightblue;
+            transition: all 1.25s ease;
+            width: 50%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="main-card">
+        <h1>Bug Checking</h1>
+
+        <p>Use the buttons below to modify the box:</p>
+        <button id="btn-color">Change Color</button>
+        <button id="btn-move">Move Box</button>
+    </div>
+
+    <script>
+        const card = document.getElementById('main-card');
+        const colorBtn = document.getElementById('btn-color');
+        const moveBtn = document.getElementById('btn-move');
+
+        colorBtn.addEventListener('click', () => {
+            card.style.backgroundColor = 'lightgreen';
+        });
+
+        moveBtn.addEventListener('click', () => {
+            card.style.marginTop = '200px';
+        });
+    </script>
+</body>
+</html>
