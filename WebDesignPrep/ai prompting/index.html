@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraria: The First Night | Official Site</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="https://img.icons8.com/color/48/terraria.png" alt="Terraria Icon" class="header-icon">
+                <div class="logo">TERRARIA<span>MOVIE</span></div>
+            </div>
+            <ul>
+                <li><a href="#" onclick="showSection('trailer')">TRAILER</a></li>
+                <li><a href="#" onclick="showSection('cast')">CAST</a></li>
+                <li><a href="#" onclick="showSection('merch')">MERCH</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="glow-text">THE FIRST NIGHT</h1>
+            <p class="release-date">EXPERIENCE IT IN IMAX JUNE 16, 2026</p>
+            <div class="hero-btns">
+                <button class="primary-btn">WATCH TEASER</button>
+                <button class="secondary-btn" onclick="showSection('merch')">GET EXCLUSIVE LOOT</button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section id="trailer" class="content-section">
+            <h2 class="section-title">A New World Awaits</h2>
+            <div class="trailer-box">
+                <div id="plot-summary" class="plot-collapsed">
+                    <p class="summary-lead">"Two strangers. One world. No manual."</p>
+                    <p>When James and Sarah find themselves suddenly transported into a land of vibrant forests and deadly mysteries, they realize the rules of their world no longer apply. Guided by the enigmatic Andrew, they must learn to harvest the land before the sun sets. As they battle the **King Slime** and survive the terrifying gaze of the **Eye of Cthulhu**, they discover a deeper darkness spreading—The Corruption.</p>
+                    <p class="more-text">Driven by a need to return home, they venture into the chasm to face the **Eater of Worlds**, only to realize that the world itself is testing them. Their journey leads them to the steps of an ancient Dungeon, where the legendary **Skeletron** guards a secret that could either save Terraria or trap them forever.</p>
+                </div>
+                <button id="read-more-btn" onclick="togglePlot()">READ FULL SYNOPSIS</button>
+            </div>
+
+            <div class="review-section">
+                <h3 class="section-title small">Early Reactions</h3>
+                <div class="review-grid">
+                    <div class="review-card">
+                        <p>"The boss fights are frame-perfect. Skeletron is terrifying!"</p>
+                        <span class="reviewer">- Sorbet Cafe</span>
+                    </div>
+                    <div class="review-card">
+                        <p>"I can finally see what the Guide does in 4K. 10/10."</p>
+                        <span class="reviewer">- GitGudWo</span>
+                    </div>
+                    <div class="review-card">
+                        <p>"The building montage was peak cinema."</p>
+                        <span class="reviewer">- Yardis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cast" class="content-section" style="display:none;">
+            <h2 class="section-title">The Survivors & Legends</h2>
+            <div class="cast-grid">
+                <div class="cast-card"><h3>Tom Holland</h3><p>The Guide</p></div>
+                <div class="cast-card"><h3>Zendaya</h3><p>Alex</p></div>
+                <div class="cast-card"><h3>Danny DeVito</h3><p>The Merchant</p></div>
+                <div class="cast-card"><h3>Florence Pugh</h3><p>The Dryad</p></div>
+                <div class="cast-card"><h3>Idris Elba</h3><p>The Arms Dealer</p></div>
+                <div class="cast-card"><h3>ChippyGaming</h3><p>The Clothier (Cameo)</p></div>
+            </div>
+        </section>
+
+        <section id="merch" class="content-section" style="display:none;">
+            <h2 class="section-title">Official Armory</h2>
+            <div class="merch-grid">
+                <div class="item">
+                    <div class="badge">LIMITED</div>
+                    <h3>Movie Poster (Holo)</h3>
+                    <p>$19.99</p>
+                    <button class="merch-btn">ADD TO CART</button>
+                </div>
+                <div class="item">
+                    <h3>Skeletron Skull Bucket</h3>
+                    <p>$24.99</p>
+                    <button class="merch-btn">ADD TO CART</button>
+                </div>
+                <div class="item">
+                    <h3>'I Survived' Tee</h3>
+                    <p>$29.99</p>
+                    <button class="merch-btn">ADD TO CART</button>
+                </div>
+                <div class="item">
+                    <h3>Eye of Cthulhu Plush</h3>
+                    <p>$25.00</p>
+                    <button class="merch-btn">ADD TO CART</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2026 RE-LOGIC FILMS. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
