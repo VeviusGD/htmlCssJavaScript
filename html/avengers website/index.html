@@ -3,122 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.H.I.E.L.D. Data Archive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>S.H.I.E.L.D. Personnel Archives</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --shield-dark: #121212;
-            --avenger-red: #e23636;
-            --accent-blue: #3498db;
-            --panel-bg: #1e1e1e;
+            --shield-dark: #0b0c10;
+            --avenger-red: #c3073f;
+            --accent-cyan: #66fcf1;
+            --panel-bg: #1f2833;
+            --text-main: #c5c6c7;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #0a0a0a;
-            color: #ecf0f1;
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--shield-dark);
+            color: var(--text-main);
             margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
-            background-color: var(--shield-dark);
-            padding: 20px;
+            width: 100%;
+            background: linear-gradient(90deg, #0b0c10 0%, #1f2833 50%, #0b0c10 100%);
+            padding: 20px 0;
             text-align: center;
-            border-bottom: 3px solid var(--avenger-red);
+            border-bottom: 2px solid var(--avenger-red);
+            text-transform: uppercase;
         }
 
-        h1 { font-family: 'Oswald', sans-serif; margin: 0; letter-spacing: 2px; }
+        h1 { font-family: 'Oswald', sans-serif; color: white; letter-spacing: 5px; margin: 0; font-size: 2rem; }
 
         .container {
-            max-width: 1050px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 1000px;
+            padding: 15px; /* Tightened padding */
         }
 
-        /* Tableau Wrapper - Tight Fit */
-        .viz-section {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
+        /* Optimized Tableau Frame - Zero Unnecessary Margin */
+        .viz-outer-frame {
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+            height: 827px; /* Matches Dashboard height exactly */
+            width: 1000px;
             overflow: hidden;
-            max-height: 840px; /* Snaps to the Tableau height */
+            margin-bottom: 10px; /* Minimal gap to summary */
         }
 
-        /* Expandable "Bubble" Summaries */
-        .summary-wrapper {
+        /* Analysis Section */
+        .dossier-section {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .summary-item {
+        .bubble {
             background: var(--panel-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #333;
+            border: 1px solid #45a29e;
+            border-radius: 6px;
         }
 
-        .summary-header {
+        .bubble-trigger {
             width: 100%;
-            padding: 15px 20px;
-            background: var(--panel-bg);
-            color: var(--avenger-red);
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: var(--accent-cyan);
             font-family: 'Oswald', sans-serif;
             font-size: 1.1rem;
             text-align: left;
-            border: none;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.3s;
         }
 
-        .summary-header:hover {
-            background: #252525;
-        }
-
-        .summary-header::after {
-            content: '+';
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-        }
-
-        .summary-header.active::after {
-            content: '−';
-        }
-
-        .summary-content {
+        .bubble-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            background: #151515;
+            transition: max-height 0.3s ease-out;
             padding: 0 20px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: white;
         }
 
-        .summary-content.show {
-            max-height: 200px;
-            padding: 15px 20px;
+        .bubble-content.open {
+            max-height: 300px;
+            padding: 5px 20px 15px 20px;
         }
 
-        footer { text-align: center; padding: 40px; color: #444; font-size: 0.8rem; }
+        .source-card {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(195, 7, 63, 0.1);
+            border: 1px dashed var(--avenger-red);
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .source-link { color: var(--avenger-red); text-decoration: none; font-weight: bold; }
+        
+        footer { padding: 20px; text-align: center; font-size: 0.7rem; opacity: 0.5; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>AVENGERS ANALYTICS HUB</h1>
+    <h1>Personnel Database Alpha-1</h1>
+    <div style="font-size: 0.7rem; color: var(--accent-cyan);">DASHBOARD v2.0 // INTERACTIVE FILTERING ENABLED</div>
 </header>
 
 <div class="container">
     
-    <section class="viz-section">
-        <div class='tableauPlaceholder' id='viz1772548409028' style='position: relative'>
-            <noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;av&#47;avengersworksheet&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript>
+    <div class="viz-outer-frame">
+        <div class='tableauPlaceholder' id='viz1772718873595' style='position: relative'>
             <object class='tableauViz' style='display:none;'>
                 <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
                 <param name='embed_code_version' value='3' /> 
@@ -136,53 +138,65 @@
             </object>
         </div>                
         <script type='text/javascript'>                    
-            var divElement = document.getElementById('viz1772548409028');                    
+            var divElement = document.getElementById('viz1772718873595');                    
             var vizElement = divElement.getElementsByTagName('object')[0];                    
             vizElement.style.width='1000px';vizElement.style.height='827px';                    
             var scriptElement = document.createElement('script');                    
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
             vizElement.parentNode.insertBefore(scriptElement, vizElement);                
         </script>
-    </section>
+    </div>
 
-    <div class="summary-wrapper">
-        <div class="summary-item">
-            <button class="summary-header">RECRUITMENT TIMELINE ANALYSIS</button>
-            <div class="summary-content">
-                <p>The "Avengers Count per Year" data confirms two major recruitment spikes. The first occurred in 1963, while the most aggressive growth period took place between 2005 and 2015, adding dozens of new members to the roster.</p>
+    <div class="dossier-section">
+        <div class="bubble">
+            <button class="bubble-trigger">CHARACTER-CENTRIC ANALYSIS <span>[+]</span></button>
+            <div class="bubble-content">
+                By selecting specific names like <strong>Steven Rogers</strong> or <strong>Anthony Ludgate Druid</strong> in the <em>Name and Appearances</em> chart, you can isolate their individual impact. This reveals that veteran characters (pre-1970) often maintain the highest total appearances despite the massive recruitment spikes seen in the modern era.
             </div>
         </div>
 
-        <div class="summary-item">
-            <button class="summary-header">GENDER & APPEARANCE RATIO</button>
-            <div class="summary-content">
-                <p>Male characters account for the vast majority of total appearances (over 50,000). While female recruitment has stabilized in recent years, there remains a significant gap in cumulative active time compared to male counterparts.</p>
+        <div class="bubble">
+            <button class="bubble-trigger">RECRUITMENT VS. LONGEVITY <span>[+]</span></button>
+            <div class="bubble-content">
+                The interaction between the <em>Avengers Count per Year</em> and <em>Survival Rate</em> shows a stark reality: characters recruited during the high-volume years of 2005-2015 have a significantly lower "Survival Rate" (Death Ratio) compared to founding members. The high recruitment volume correlates with higher personnel turnover and casualty rates.
             </div>
         </div>
 
-        <div class="summary-item">
-            <button class="summary-header">MORTALITY & SURVIVAL RATES</button>
-            <div class="summary-content">
-                <p>The survival rate chart suggests that "Once an Avenger, Always an Avenger" often leads to a "Not Alive" status. Nearly 40% of all recorded appearances in this dataset are attributed to characters who have died at least once in canon.</p>
+        <div class="bubble">
+            <button class="bubble-trigger">GENDER & SURVIVAL DYNAMICS <span>[+]</span></button>
+            <div class="bubble-content">
+                Filtering by <strong>Gender</strong> reveals that while Male characters have higher total appearance counts, the <em>Survival Rate</em> chart indicates a nearly 1:1 ratio of "Alive" vs "Not Alive" statuses for both genders. This suggests that mortality is an equal-opportunity risk in the Avengers initiative, regardless of appearance frequency.
             </div>
         </div>
+    </div>
+
+    <div class="source-card">
+        DATABASE SOURCE: 
+        <a href="https://public.tableau.com/app/profile/jamir.pitts/viz/avengersworksheet/Dashboard1" target="_blank" class="source-link">
+            AVENGERS MASTER DATASET
+        </a>
     </div>
 
 </div>
 
 <footer>
-    LEVEL 7 ACCESS REQUIRED | S.H.I.E.L.D. DATA ARCHIVE
+    DATA SYNCHRONIZED // MARVEL COMICS ARCHIVAL ACCESS // S.H.I.E.L.D. ASSET #177271
 </footer>
 
 <script>
-    // Logic for the interactive "Click to Expand" bubbles
-    const headers = document.querySelectorAll('.summary-header');
-    
-    headers.forEach(header => {
-        header.addEventListener('click', () => {
-            header.classList.toggle('active');
-            const content = header.nextElementSibling;
-            content.classList.toggle('show');
+    document.querySelectorAll('.bubble-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const content = trigger.nextElementSibling;
+            const isOpen = content.classList.contains('open');
+            
+            // Close others
+            document.querySelectorAll('.bubble-content').forEach(c => c.classList.remove('open'));
+            document.querySelectorAll('.bubble-trigger span').forEach(s => s.textContent = '[+]');
+            
+            if (!isOpen) {
+                content.classList.add('open');
+                trigger.querySelector('span').textContent = '[−]';
+            }
         });
     });
 </script>
