@@ -153,6 +153,23 @@ These are the solutions you should have found<br><br>
 ---
 
 # **Test Cases**
-A standard test case typically includes a specific Action (the step the user takes), an Expected Result (how the site should respond), and a Pass/Fail status
-. In your walkthrough, you can explain that while developers use DevTools to fix bugs, test cases are used to prove those fixes actually work
+A standard test case typically includes a specific Action (the step the user takes), an Expected Result (how the site should respond), and a Pass/Fail status.
+1. **Required Field Validation:**
+Action: Leave a field marked with the required attribute empty and click the "Submit" button
+.
+Expected Result: The browser should prevent submission and display a validation message, such as "Please fill out this field"
+.
+
+2. **Error-Free Script Execution:**
+Action: Open the Console panel and reload the form page
+.
+Expected Result: The console should be clear of red error messages, such as an Uncaught ReferenceError
+3. **Responsive Mobile Layout:**
+Action: Toggle Device Mode in DevTools and select a mobile device, like an iPhone 6
+.
+Expected Result: The form inputs should scale correctly to the screen width without horizontal scrolling or overlapping elements
+4. **Color Contrast for Accessibility:**
+Action: Use an accessibility tool or inspector to check the contrast of the "Submit" button text against its background
+.
+Expected Result: The contrast ratio should be at least 4.5:1 for normal text to ensure it is perceivable for all users
 
