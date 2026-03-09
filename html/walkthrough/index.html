@@ -1,0 +1,147 @@
+Bootstrap Walkthrough
+1. VS Code & Bootstrap Setup
+Bootstrap is a CSS framework that allows us to build responsive sites quickly using pre-made classes. We will use a CDN (Content Delivery Network) to link Bootstrap to our project without downloading files.
+
+Step-by-Step:
+
+Open a new folder in VS Code and create index.html.
+Type ! and press Enter to generate the HTML5 boilerplate.
+Link the Bootstrap CSS in the <head> and the Bootstrap JS at the end of the <body>.
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bootstrap Basics Walkthrough</title>
+
+    <!-- Bootstrap CSS CDN -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <h1 class="text-center mt-5">Bootstrap is Linked!</h1>
+
+    <!-- Bootstrap JS Bundle (Required for Navbar and Modals) -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+
+2. Responsive Grid Layout
+Bootstrap uses a 12-column grid system. To make it work, you must follow this hierarchy: Container > Row > Column.
+
+Plain-English Explanation:
+
+Container: Centers your content and adds side padding so it doesn't touch the screen edges.
+Row: A horizontal wrapper for your columns.
+Col: The actual content holders. We use breakpoints like md (medium) to tell the columns when to stack or sit side-by-side.
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <!-- col-12 on mobile (full width), col-md-6 on medium+ screens (half width) -->
+
+        <div class="col-12 col-md-6 bg-primary text-white p-4 border">
+
+            <h3>Column 1</h3>
+
+            <p>I stack on mobile but sit next to Column 2 on laptops.</p>
+
+        </div>
+
+        <div class="col-12 col-md-6 bg-dark text-white p-4 border">
+
+            <h3>Column 2</h3>
+
+            <p>Bootstrap handles the math for these 12 columns!</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+3. Adding a Responsive Navbar
+The Navbar is one of Bootstrap's most important components. It automatically collapses into a hamburger menu on mobile devices.
+
+Plain-English Explanation: The navbar-expand-lg class keeps the menu open on large screens. On smaller screens, the navbar-toggler button appears. The data-bs-target must match the id of the collapsible div for the menu to open.
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">Team 1 Demo</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainMenu">
+
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+4. Cards, Buttons, and Utility Classes
+Bootstrap Utility Classes allow you to style elements directly in your HTML without writing custom CSS.
+
+Required Classes for the Assignment:
+
+mt-3: Margin-top (level 3).
+p-4: Padding on all sides (level 4).
+text-center: Centers all text and elements inside.
+
+<div class="container">
+
+    <div class="card text-center mx-auto" style="width: 18rem;">
+
+        <div class="card-body p-4">
+
+            <h5 class="card-title">Bootstrap Card</h5>
+
+            <p class="card-text">We used utility classes for all the spacing here.</p>
+
+            <a href="#" class="btn btn-primary mt-3">Click Me!</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+Summary: 5 Things to Remember
+Mobile-First Design: Bootstrap is designed for small screens first; use breakpoints like md or lg to adjust layouts for larger screens.
+The 12-Column Rule: Rows are divided into 12 units. Two col-6 elements will fill exactly one row.
+Hierarchy is Key: Always wrap your grid items in this order: Container > Row > Col.
+JS is Mandatory: Interactive components like the navbar hamburger menu or modals will not work without the Bootstrap JS Bundle link.
+Utility Classes: Use classes like p-4 (padding) or mt-3 (margin) to handle spacing quickly instead of writing custom CSS.

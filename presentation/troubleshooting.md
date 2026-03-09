@@ -7,35 +7,91 @@ paginate: true
 
 # Troubleshooting, QA & Developer Tools
 
----
+***
 
-<h1>Developer Tools</h1>
-Developer Tools are a group of tools that are built into the web browser for people developing systems and websites to use. They allow you to edit pages, find and diagnose issues, and analyze how the page performs. There are a few ways to access them, depending on the browser you use, and it has multiple built-in features that each do different things.
+# **Presentation Guide: Mastering Chrome DevTools for QA & Troubleshooting**
 
----
+## **1. Introduction: The Developer's Command Center**
+Vieo Link: https://youtu.be/x4q86IjJFag?list=TLGGcd5srfTBjRcwNjAzMjAyNg
+***
+Google Chrome DevTools is the most important tool for web development. It allows us to "look under the hood" of any website to see how it is built, find bugs, and test performance.
 
-
-<h3>Inspector Panel</h3>
-The Inspector Panel shows the HTML and CSS the exact same way the browser shows it. It is typically the default view in browser tools and acts as a Document Object Model (DOM) and a CSS Editor.
-
----
-
-<h3>Console Panel</h3>
-The Console Panel reports errors the browser encounters while running code and allows you to execute your own JavaScript on the page. It's used for debugging JavaScript and viewing messages sent to the console.
+*   **How to Access:** You can open it by pressing **F12**, **Ctrl+Shift+I**, or via the browser menu under **More Tools > Developer Tools**.
+*   **Layout:** You can move the panel to the bottom, the sides, or "undock" it into its own window to see your website better.
 
 ---
 
-<h3>Sources Panel</h3>
-The Sources Panel allows you to view all of the files associated with the page and can pause code in the middle of it being executed. It's used for more advanced JavaScript debugging and file management.
+## **2. The Elements Panel: Live-Editing HTML & CSS**
+The **Elements Panel** is where we inspect the "source code" of a page. Any changes made here are **temporary**—they disappear if you refresh the page.
+
+### **Visual Concept: The Box Model**
+When you hover over code in the Elements panel, you will see colored boxes on the screen:
+*   **Green:** Represents **Padding** (internal space).
+*   **Orange:** Represents **Margin** (external space).
+
+### **Demonstration: Live-Editing**
+If we were looking at a standard heading, we could double-click the text in DevTools to change it instantly. 
+
+**Example Code (What we see in the Inspector):**
+```html
+<!-- Before Editing -->
+<h1 class="mt-5">Welcome to the Class</h1>
+
+<!-- After Double-Clicking and Editing -->
+<h1 class="mt-5">DevTools is Awesome!</h1>
+```
 
 ---
 
+## **3. Device Mode: Testing Responsive Design**
+A major part of Quality Assurance (QA) is ensuring a site works on all screens. 
 
-<h1>Troubleshooting</h1>
-<p>We have a code block here, but theres a few errors in it. Find the errors and fix them!</p>
-
+*   **The Icon:** Clicking the "Device Toggle" icon allows us to simulate different devices.
+*   **Capabilities:** We can select specific presets like **iPhone 6** or **Galaxy S5** to see how the layout shifts from desktop to mobile.
+*   **Orientation:** We can even flip the "phone" from **portrait to landscape** mode to test how the site reacts.
 
 ---
+
+## **4. The Console: Finding and Fixing Bugs**
+The **Console** is where JavaScript errors are logged. If a button on a website isn't working, the answer is usually a **red error message** in the Console.
+
+### **Shortcuts for Troubleshooting:**
+*   **`$0`**: This references the element you currently have selected in the Elements panel.
+*   **`console.table()`**: This turns a messy list of data into a clean, readable table.
+
+**Demonstration Code (Running JS in the Console):**
+```javascript
+// Typing this in the console changes the heading color to red instantly
+$0.style.color = 'red';
+
+// Typing this creates a clean data table for debugging
+console.table([{name: "Bug 1", status: "Fixed"}, {name: "Bug 2", status: "Open"}]);
+```
+
+---
+
+## **5. Network & Performance Tracking**
+The **Network Panel** shows every file the browser downloads (images, scripts, CSS).
+
+*   **Speed Check:** It shows the **Size** of files and the **Time** it takes to load them.
+*   **XHR/Ajax Requests:** This is used to track "hidden" data requests. For example, when you click "Get Users," you can see the exact JSON data the server sends back.
+*   **Audits (Lighthouse):** This tool runs a "health check" on the site, giving scores for **Performance, Accessibility, and SEO**.
+
+---
+
+# **Debugging**
+
+Bug testing (often called debugging) is the process of finding and fixing problems in a website’s code to ensure it functions correctly for all users. For web developers, this often involves using browser developer tools to inspect live code, watching variable values, and finding the specific lines of code preventing a script from running.
+## Key Steps to Debugging
+
+1. Test things on your website to see if anything doesn't work
+2. Finding something that doesn't function as intended
+3. Checking the source code for errors/inconsistencies
+4. Figuring out how to prevent the issue from occurring again
+5. Running the new code to make sure it works intentionally
+
+## Applying It
+We have a code block here, but there are a few errors scattered inside it. Find the errors and fix them!
 
 ```html
 <!DOCTYPE html>
@@ -55,9 +111,6 @@ The Sources Panel allows you to view all of the files associated with the page a
     </style>
 </head>
 ```
-
----
-
 ```html
 <body>
     <div class="box" id="main-box">
@@ -87,16 +140,19 @@ The Sources Panel allows you to view all of the files associated with the page a
 </html>
 ```
 
----
-
-# All Solutions
+## **All Solutions**
 These are the solutions you should have found<br><br>
-Solution 1: The class and id name for the div don't match the styling name for the div.<br>Replace &lt;div class="box" id="main-box"&gt; with &lt;div class="card" id="main-card"&gt; on line 18.
+- **Solution 1:** The class and id name for the div don't match the styling name for the div.<br>Replace **&lt;div class="box" id="main-box"&gt;** with **&lt;div class="card" id="main-card"&gt;** on line 18.
+
+
+- **Solution 2:** Pressing the left button doesn't change anything. Make sure the id you're finding matches the id of the button.<br>Replace **&lt;button id="btn-col"&gt;** with **&lt;button id="btn-color"&gt;** on line 22.
+
+
+- **Solution 3:** Pressing the right button makes the box go off the screen. Make sure the value is positive, so it moves in the intended direction.<br>Remove the **"-"** from the **"200px"** on line 36.
 
 ---
 
-Solution 2: Pressing the left button doesn't change anything. Make sure the id you're finding matches the id of the button.<br>Replace &lt;button id="btn-col"&gt; with &lt;button id="btn-color"&gt; on line 22.
+# **Test Cases**
+A standard test case typically includes a specific Action (the step the user takes), an Expected Result (how the site should respond), and a Pass/Fail status
+. In your walkthrough, you can explain that while developers use DevTools to fix bugs, test cases are used to prove those fixes actually work
 
----
-
-Solution 3: Pressing the right button makes the box go off the screen. Make sure the value is positive, so it moves in the intended direction.<br>Remove the - from the '200px' on line 36.
