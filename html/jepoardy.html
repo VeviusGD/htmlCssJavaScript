@@ -1,0 +1,687 @@
+# Web Design Jeopardy — Round 1: Code Examples
+**MCCC Web Design · 145010**  
+Paste each snippet into a new file in VS Code and open with Live Server to see it in action.
+
+---
+
+## HTML BASICS
+
+### $200 — Ordered & Unordered Lists
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Lists</title>
+</head>
+<body>
+
+  <h2>Unordered List (bullets)</h2>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+  </ul>
+
+  <h2>Ordered List (numbers)</h2>
+  <ol>
+    <li>Plan the site</li>
+    <li>Write the HTML</li>
+    <li>Style with CSS</li>
+    <li>Test and publish</li>
+  </ol>
+
+</body>
+</html>
+```
+
+> **Try it:** Change `<ul>` to `<ol>` on the first list. What happens?
+
+---
+
+### $300 — The `alt` Attribute on Images
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Alt Text</title>
+</head>
+<body>
+
+  <!-- Good: has descriptive alt text -->
+  <img src="https://placehold.co/300x150" alt="A placeholder image showing a gray box">
+
+  <br><br>
+
+  <!-- Bad: empty alt — screen readers skip it entirely -->
+  <img src="https://placehold.co/300x150" alt="">
+
+  <br><br>
+
+  <!-- Try this: break the src path on purpose and see what shows -->
+  <img src="broken-path.jpg" alt="This text shows when the image fails to load">
+
+</body>
+</html>
+```
+
+> **Try it:** Break the `src` on the first image. Notice how the `alt` text appears as a fallback — this is exactly what screen readers use too.
+
+---
+
+### $400 — HTML Tables
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Table</title>
+  <style>
+    table { border-collapse: collapse; width: 60%; }
+    th, td { border: 1px solid #333; padding: 8px 12px; text-align: left; }
+    th { background-color: #1a2fb8; color: white; }
+    tr:nth-child(even) { background-color: #f0f0f0; }
+  </style>
+</head>
+<body>
+
+  <h2>Student Grades</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Project</th>
+      <th>Grade</th>
+    </tr>
+    <tr>
+      <td>Alex</td>
+      <td>Portfolio Site</td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <td>Jordan</td>
+      <td>Portfolio Site</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td>Sam</td>
+      <td>Portfolio Site</td>
+      <td>76</td>
+    </tr>
+  </table>
+
+</body>
+</html>
+```
+
+> **Try it:** Add a fourth row with your own name. Then try adding `colspan="2"` to a `<td>` and see what it does.
+
+---
+
+### $500 — Inline CSS vs. External CSS
+
+**Option A — Inline (messy, hard to maintain):**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inline CSS</title>
+</head>
+<body>
+
+  <h1 style="color: navy; font-family: Georgia; text-align: center;">Welcome</h1>
+  <p style="color: gray; font-size: 18px; font-family: Georgia;">
+    Every tag has to be styled individually. If you want to change the font,
+    you have to update every single tag.
+  </p>
+  <p style="color: gray; font-size: 18px; font-family: Georgia;">
+    This second paragraph has to repeat all the same styles.
+  </p>
+
+</body>
+</html>
+```
+
+**Option B — External CSS (clean, reusable):**
+
+Save as `index.html`:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>External CSS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h1>Welcome</h1>
+  <p>Change the font once in styles.css and it updates everywhere.</p>
+  <p>This paragraph gets the same styles automatically.</p>
+
+</body>
+</html>
+```
+
+Save as `styles.css` in the same folder:
+```css
+body {
+  font-family: Georgia, serif;
+}
+
+h1 {
+  color: navy;
+  text-align: center;
+}
+
+p {
+  color: gray;
+  font-size: 18px;
+}
+```
+
+> **Try it:** In Option B, change the font in `styles.css` to `Arial` — notice both paragraphs update at once. That's the power of external CSS.
+
+---
+
+## LINKS & CSS
+
+### $100 — Absolute vs. Relative Links
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Link Types</title>
+</head>
+<body>
+
+  <!-- Absolute link: full URL, works from anywhere -->
+  <a href="https://www.google.com">Go to Google (absolute)</a>
+
+  <br><br>
+
+  <!-- Relative link: path from this file's location -->
+  <!-- This only works if you have an about.html in the same folder -->
+  <a href="about.html">Go to About page (relative)</a>
+
+  <br><br>
+
+  <!-- Relative link going up one folder level -->
+  <a href="../index.html">Go up one folder to index (relative)</a>
+
+  <br><br>
+
+  <!-- Anchor link: jumps to a section on the SAME page -->
+  <a href="#bottom">Jump to bottom of this page</a>
+
+  <br><br><br><br><br><br><br><br>
+
+  <h2 id="bottom">You jumped here!</h2>
+
+</body>
+</html>
+```
+
+---
+
+### $200 — Wrapping Text Around an Image with `float`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Float</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; }
+
+    .float-left {
+      float: left;
+      margin: 0 16px 8px 0;  /* space to the right and below */
+    }
+
+    .float-right {
+      float: right;
+      margin: 0 0 8px 16px;  /* space to the left and below */
+    }
+
+    /* clearfix: stop float from bleeding into next section */
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Float Left</h2>
+  <div class="clearfix">
+    <img class="float-left" src="https://placehold.co/150x100" alt="Sample image">
+    <p>This text wraps to the right of the image because the image is floated left.
+       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+       incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+
+  <h2>Float Right</h2>
+  <div class="clearfix">
+    <img class="float-right" src="https://placehold.co/150x100" alt="Sample image">
+    <p>This text wraps to the left of the image because the image is floated right.
+       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+       incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+
+</body>
+</html>
+```
+
+> **Try it:** Remove `float: left` from the CSS and reload — the image goes back to block behavior and the text no longer wraps.
+
+---
+
+### $400 — Hover Effect on a Link
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Link Hover Effects</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; }
+
+    /* Default link style */
+    a {
+      color: navy;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    /* What happens when you hover */
+    a:hover {
+      color: crimson;
+      text-decoration: underline;
+    }
+
+    /* Button-style hover */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #1a2fb8;
+      color: white;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: #f5c518;
+      color: #06093a;
+    }
+  </style>
+</head>
+<body>
+
+  <p><a href="#">Regular link — hover over me</a></p>
+  <p><a class="btn" href="#">Button link — hover over me</a></p>
+
+</body>
+</html>
+```
+
+> **Try it:** Add a `transition: 0.3s;` property to `.btn` — now the color change animates smoothly instead of snapping.
+
+---
+
+### $500 — Embedding Video with HTML5 `<video>`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Video</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; }
+    video { display: block; margin: 16px 0; border: 2px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <h2>HTML5 Video Tag</h2>
+
+  <!-- Basic video embed — replace src with a real .mp4 file path -->
+  <video width="480" controls>
+    <source src="your-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- With autoplay and muted (required for autoplay in most browsers) -->
+  <h3>Autoplay + Muted + Loop</h3>
+  <video width="480" autoplay muted loop controls>
+    <source src="your-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!--
+    Key attributes:
+    controls  — shows play/pause/volume bar
+    autoplay  — starts playing immediately (must also have muted)
+    muted     — no sound on load
+    loop      — replays when it ends
+    width     — sets display width (use CSS for responsive sizing)
+  -->
+
+</body>
+</html>
+```
+
+> **Try it:** Download any short `.mp4` to your project folder, update the `src`, and test each attribute combination.
+
+---
+
+## WEB FORMS
+
+### $100 — Common Form Input Types
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Input Types</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 30px auto; }
+    label { display: block; margin-top: 16px; font-weight: bold; }
+    input, select, textarea { margin-top: 4px; padding: 6px; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <h2>Common Input Types</h2>
+  <form>
+
+    <label>Text Field</label>
+    <input type="text" placeholder="Enter your name">
+
+    <label>Email</label>
+    <input type="email" placeholder="you@example.com">
+
+    <label>Password</label>
+    <input type="password" placeholder="Enter password">
+
+    <label>Number</label>
+    <input type="number" min="1" max="100" value="10">
+
+    <label>Date</label>
+    <input type="date">
+
+    <label>Radio Buttons — Pick ONE</label>
+    <input type="radio" name="grade" value="junior"> Junior
+    <input type="radio" name="grade" value="senior"> Senior
+
+    <label>Checkboxes — Pick ANY</label>
+    <input type="checkbox" name="lang" value="html"> HTML
+    <input type="checkbox" name="lang" value="css"> CSS
+    <input type="checkbox" name="lang" value="js"> JavaScript
+
+    <label>Drop-down</label>
+    <select>
+      <option>Web Design</option>
+      <option>Programming</option>
+      <option>Database</option>
+      <option>AI/ML</option>
+    </select>
+
+    <br><br>
+    <input type="submit" value="Submit">
+    <input type="reset" value="Clear Form">
+
+  </form>
+
+</body>
+</html>
+```
+
+---
+
+### $200 — The `action` Attribute
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Action</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 450px; margin: 30px auto; }
+    input { display: block; margin: 10px 0; padding: 8px; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <h2>Form with action attribute</h2>
+  <p>The <code>action</code> attribute tells the browser where to send the data when submitted.</p>
+
+  <!--
+    action="https://httpbin.org/post" is a free test endpoint.
+    It echoes back whatever data you send — great for seeing form data in action.
+    method="post" sends data in the request body (not visible in the URL).
+    method="get"  would show data in the URL bar.
+  -->
+  <form action="https://httpbin.org/post" method="post">
+
+    <label>Your Name:</label>
+    <input type="text" name="username" placeholder="Enter name">
+
+    <label>Your Email:</label>
+    <input type="email" name="email" placeholder="Enter email">
+
+    <input type="submit" value="Send Data">
+
+  </form>
+
+</body>
+</html>
+```
+
+> **Try it:** Submit the form and look at the JSON response — you'll see your field data under `"form"`. Then change `method="post"` to `method="get"` and look at the URL after submitting.
+
+---
+
+### $500 — Grouping Fields with `<fieldset>` and `<legend>`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fieldset and Legend</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 30px auto; }
+    fieldset { border: 2px solid #1a2fb8; border-radius: 6px; padding: 16px; margin-bottom: 20px; }
+    legend { font-weight: bold; color: #1a2fb8; padding: 0 8px; }
+    label { display: block; margin: 8px 0 2px; }
+    input { padding: 6px; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <h2>Job Application Form</h2>
+  <form>
+
+    <fieldset>
+      <legend>Personal Information</legend>
+      <label>First Name</label>
+      <input type="text" name="fname">
+      <label>Last Name</label>
+      <input type="text" name="lname">
+    </fieldset>
+
+    <fieldset>
+      <legend>Contact Details</legend>
+      <label>Email</label>
+      <input type="email" name="email">
+      <label>Phone</label>
+      <input type="tel" name="phone">
+    </fieldset>
+
+    <input type="submit" value="Submit Application">
+
+  </form>
+
+</body>
+</html>
+```
+
+> **Try it:** Remove the `<fieldset>` and `<legend>` tags (keep the inputs) and reload — notice how the grouping and visual sections disappear. Fieldset helps users understand which fields belong together.
+
+---
+
+## WEBSITES & SEO
+
+### $100 — SEO Meta Tags in the `<head>`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- The title tag: shows in the browser tab AND as the clickable headline in Google results -->
+  <title>MCCC Web Design Program | Medina County Career Center</title>
+
+  <!-- Meta description: the gray summary text shown under the link in Google -->
+  <meta name="description" content="Learn HTML, CSS, and web development at MCCC's Software Engineering program. Real projects, real skills.">
+
+  <!-- Keywords (less important today, but still part of SEO history) -->
+  <meta name="keywords" content="web design, HTML, CSS, CTE, Medina County, career center">
+
+  <!-- Tells search engines whether to index this page -->
+  <meta name="robots" content="index, follow">
+
+</head>
+<body>
+  <h1>Welcome to MCCC Web Design</h1>
+  <p>Right-click → Inspect → Elements tab to see all the meta tags in the head.</p>
+  <p>Open the browser tab — notice the title you set appears there.</p>
+</body>
+</html>
+```
+
+> **Try it:** Change the `<title>` to something descriptive for a pretend business. Open DevTools (F12) → Elements to see your meta tags in the `<head>`.
+
+---
+
+### $300 — Responsive Design with CSS Media Queries
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport meta is REQUIRED for responsive design to work on mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Design</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #e8f0fe;
+    }
+
+    .container {
+      display: flex;
+      gap: 16px;
+    }
+
+    .box {
+      flex: 1;
+      background: #1a2fb8;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    /* When screen is 600px or narrower, stack the boxes vertically */
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+      }
+
+      body {
+        background-color: #fff3cd; /* background turns yellow on small screens */
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Resize your browser window!</h2>
+  <p>Background color and layout change at 600px wide.</p>
+
+  <div class="container">
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <div class="box">Box 3</div>
+  </div>
+
+</body>
+</html>
+```
+
+> **Try it:** Drag your browser window narrower and wider. Watch the background color change and the boxes stack. Open DevTools → toggle the mobile device icon (Ctrl+Shift+M) to simulate a phone.
+
+---
+
+## IT FUNDAMENTALS
+
+### $300 — Static vs. Dynamic Sites (side-by-side illustration)
+
+This one is conceptual, but here's a demonstration of what "static" looks like — the content never changes no matter who visits or when:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Static Site Example</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; }
+    .note { background: #fff3cd; border-left: 4px solid #f5c518; padding: 12px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>MCCC Web Design — Static Page</h1>
+  <p>This content is hard-coded in the HTML file. Every visitor sees exactly the same thing.</p>
+
+  <h2>Class Schedule</h2>
+  <ul>
+    <li>Period 2 — Web Design</li>
+    <li>Period 4 — Programming</li>
+    <li>Period 6 — Database Applications</li>
+  </ul>
+
+  <div class="note">
+    <strong>Static:</strong> To update this schedule, a developer has to manually edit the HTML file and re-upload it.<br><br>
+    <strong>Dynamic (contrast):</strong> A dynamic site would pull the schedule from a database — an admin could update it through a web form without touching any code.
+  </div>
+
+</body>
+</html>
+```
+
+---
+
+*End of Round 1 Code Examples*

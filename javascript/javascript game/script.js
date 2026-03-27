@@ -20,11 +20,11 @@ const gameModeConfig = {
         },
         towerStats: {
             1: { cost: 100, health: 100, damage: 10, attackRate: 20 },
-            2: { cost: 650, health: 200, damage: 600, attackRate: 300 },
+            2: { cost: 400, health: 200, damage: 400, attackRate: 300 },
             3: { cost: 150, health: 125, damage: 20, attackRate: 160 },
-            4: { cost: 500, health: 175, damage: 35, attackRate: 160 },
+            4: { cost: 550, health: 175, damage: 35, attackRate: 160 },
             5: { cost: 800, health: 120, damage: 10, attackRate: 10 },
-            6: { cost: 600, health: 300, damage: 30, attackRate: 120 },
+            6: { cost: 600, health: 300, damage: 40, attackRate: 45 },
             7: { cost: 1500, health: 100, damage: 10, attackRate: 8 },
         },
         initialResources: 400,
@@ -53,11 +53,11 @@ const gameModeConfig = {
         },
         towerStats: {
             1: { cost: 100, health: 120, damage: 15, attackRate: 20 },
-            2: { cost: 650, health: 250, damage: 900, attackRate: 300 },
+            2: { cost: 650, health: 250, damage: 600, attackRate: 300 },
             3: { cost: 150, health: 165, damage: 30, attackRate: 160 },
-            4: { cost: 500, health: 215, damage: 55, attackRate: 160 },
+            4: { cost: 550, health: 215, damage: 55, attackRate: 160 },
             5: { cost: 800, health: 120, damage: 15, attackRate: 10 },
-            6: { cost: 600, health: 400, damage: 45, attackRate: 110 },
+            6: { cost: 650, health: 400, damage: 70, attackRate: 45 },
             7: { cost: 1500, health: 120, damage: 15, attackRate: 8 },
         },
         initialResources: 450,
@@ -86,11 +86,11 @@ const gameModeConfig = {
         },
         towerStats: {
             1: { cost: 125, health: 150, damage: 20, attackRate: 20 },
-            2: { cost: 780, health: 300, damage: 1200, attackRate: 300 },
+            2: { cost: 780, health: 300, damage: 800, attackRate: 300 },
             3: { cost: 180, health: 210, damage: 40, attackRate: 160 },
-            4: { cost: 600, health: 250, damage: 75, attackRate: 160 },
+            4: { cost: 660, health: 250, damage: 75, attackRate: 160 },
             5: { cost: 960, health: 120, damage: 20, attackRate: 10 },
-            6: { cost: 720, health: 500, damage: 60, attackRate: 100 },
+            6: { cost: 780, health: 500, damage: 90, attackRate: 45 },
             7: { cost: 1800, health: 150, damage: 20, attackRate: 8 },
         },
         initialResources: 500,
@@ -119,11 +119,11 @@ const gameModeConfig = {
         },
         towerStats: {
             1: { cost: 100, health: 150, damage: 30, attackRate: 20 },
-            2: { cost: 650, health: 300, damage: 1800, attackRate: 300 },
+            2: { cost: 650, health: 300, damage: 1200, attackRate: 300 },
             3: { cost: 150, health: 210, damage: 60, attackRate: 160 },
-            4: { cost: 500, health: 250, damage: 100, attackRate: 160 },
+            4: { cost: 550, health: 250, damage: 100, attackRate: 160 },
             5: { cost: 800, health: 120, damage: 30, attackRate: 10 },
-            6: { cost: 600, health: 500, damage: 90, attackRate: 100 },
+            6: { cost: 650, health: 500, damage: 140, attackRate: 45 },
             7: { cost: 1500, health: 150, damage: 30, attackRate: 8 },
         },
         initialResources: 1000,
@@ -214,11 +214,11 @@ canvas.addEventListener('mouseleave', function(){
 const keyToTower = {
     '1': 1, // Slasher (from card1)
     '2': 3, // Soldier (from card2)
-    '3': 4, // Archer (from card3)
-    '4': 6, // Crook Boss (from card4)
-    '5': 2, // Sniper (from card5)
+    '3': 2, // Sniper (from card5)
+    '4': 4, // Archer (from card3)
+    '5': 6, // Crook Boss (from card4)
     '6': 5, // Minigunner (from card6)
-    '7': 7, // Accel (from card7)
+    '7': 7, // Accel (from card7)1
 };
 
 window.addEventListener('keydown', function(e) {
@@ -504,9 +504,9 @@ function handleTowers(){
 const towerCardMap = [
     { card: 'card1', towerIndex: 1, name: 'Slasher', color: 'darkgreen' },
     { card: 'card2', towerIndex: 3, name: 'Soldier', color: '#8B4513' },
-    { card: 'card3', towerIndex: 4, name: 'Archer', color: 'navy' },
-    { card: 'card4', towerIndex: 6, name: 'Crook Boss', color: 'peru' },
-    { card: 'card5', towerIndex: 2, name: 'Sniper', color: '#454545' },
+    { card: 'card3', towerIndex: 2, name: 'Sniper', color: '#454545' },
+    { card: 'card4', towerIndex: 4, name: 'Archer', color: 'navy' },
+    { card: 'card5', towerIndex: 6, name: 'Crook Boss', color: 'peru' },
     { card: 'card6', towerIndex: 5, name: 'Minigunner', color: 'maroon' },
     { card: 'card7', towerIndex: 7, name: 'Accel', color: 'purple' }
 ];
